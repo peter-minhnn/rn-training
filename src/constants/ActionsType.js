@@ -1,0 +1,5 @@
+export const INCREMENT = 'INCREMENT';
+export const DECREMENT = 'DECREMENT';
+export const START_COUNTDOWN = 'START_COUNTDOWN';
+export const DEC_COUNTDOWN = 'DEC_COUNTDOWN';
+export const CANCEL_COUNTDOWN = 'CANCEL_COUNTDOWN';
