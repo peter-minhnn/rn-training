@@ -1,28 +1,23 @@
 import * as types from '../constants/ActionsType';
 
 //Action request get user by call api
-const Inc = () => {
-    dispatch({ type: types.INCREMENT });
+const LoadingRequest = () => {
+    dispatch({ type: types.LOADING_REQUEST, loading: true });
+}
+
+//Action request get user by call api
+const GetUserRequest = (userId) => {
+    dispatch({ type: types.GET_USER_REQUEST, userId: userId });
 }
 
 //Action reponse get user by call api
-const Dec = () => {
-    dispatch({ type: types.DECREMENT });
+const GetUserResponse = (result) => {
+    dispatch({ type: types.GET_USER_RESPONSE, payload: result });
 }
 
-//Start Countdown
-const StartCountdown = () => {
-    dispatch({ type: types.START_COUNTDOWN });
-}
 
-//Action reponse get user by call api
-const CancelCountdown = () => {
-    dispatch({ type: types.CANCEL_COUNTDOWN });
-}
-
-export { 
-    Inc, 
-    Dec,
-    StartCountdown,
-    CancelCountdown
+export {
+    LoadingRequest,
+    GetUserRequest,
+    GetUserResponse
 };

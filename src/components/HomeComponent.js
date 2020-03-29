@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import HomeScreen from '../screens/HomeScreen';
-import * as actions from '../actions';
+import * as homeActions from '../actions/homeAction';
 
 class HomeScreenF extends Component {
     render() {
         return (
-            <HomeScreen actions={this.props.actions} count={this.props.count} countdown={this.props.countdown}/>
+            <HomeScreen
+                
+            />
         )
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(actions.homeActions, dispatch)
+    actions: bindActionCreators(homeActions, dispatch)
 });
 
 const mapStateToProps = (state) => ({
-    count: state.homeReducer.count,
-    countdown: state.homeReducer.countdown
+    loading: state.homeReducer.loading,
+    payload: state.homeReducer.payload,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenF);

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Platform, StatusBar, YellowBox } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
-import MainAppNavigator from './navigation/MainAppNavigator';
-import useLinking from './navigation/useLinking';
-import ConfigureStore from './store/configureStore';
+import MainAppNavigator from './src/navigation/MainNavigator';
+import useLinking from './src/navigation/useLinking';
+import ConfigureStore from './src/store/ConfigureStore';
 import { Provider } from 'react-redux'; 
 //Ignore warning
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader', 'Method `jumpToIndex` is deprecated']);
@@ -36,7 +36,7 @@ export default function App(props) {
     loadResourcesAndDataAsync();
   }, []);
 
-  if (!isLoadingComplete && !props.skipLoadingScreen && !isReady) {
+  if (!isLoadingComplete) {
     return null;
   } else {
     return (

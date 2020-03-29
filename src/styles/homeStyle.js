@@ -87,4 +87,7 @@ export const homeStyles = StyleSheet.create({
         fontSize: 14,
         color: '#2e78b7',
     },
+    spinnerTextStyle: {
+        color: '#FFF'
+    },
 });

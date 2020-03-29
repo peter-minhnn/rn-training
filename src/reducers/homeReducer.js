@@ -1,23 +1,20 @@
-import { INCREMENT, DECREMENT, START_COUNTDOWN, DEC_COUNTDOWN, CANCEL_COUNTDOWN } from '../constants/ActionsType';
+import { GET_USER_RESPONSE, LOADING_REQUEST } from '../constants';
+import _ from 'lodash';
 
 const initialState = {
-    count: 0,
+    loading: false,
+    payload: null
 }
 
-function homeReducer(state, action) {
+function homeReducer(state = initialState, action) {
+    let newState = _.cloneDeep(state);
     switch (action.type) {
-        case INCREMENT:
-            return { ...state, count: state.count + 1 };
-        case DECREMENT:
-            return { ...state, count: state.count - 1 };
-        case START_COUNTDOWN:
-            return { ...state, countdown: action.countdown };
-        case DEC_COUNTDOWN:
-            return { ...state, countdown: state.countdown - 1 };
-        case CANCEL_COUNTDOWN:
-            return { ...state, countdown: 0 };
+        case LOADING_REQUEST:
+            return { ...newState, loading: true };
+        case GET_USER_RESPONSE:
+            return { ...newState, loading: false, payload: action.payload };
         default:
-            return state;
+            return newState;
     }
 }
 

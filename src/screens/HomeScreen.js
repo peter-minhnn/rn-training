@@ -11,29 +11,30 @@ import {
 import ReactNativeIcon from '../assets/img/react-native-icon.svg';
 import { homeStyles } from '../styles';
 import { Button } from 'native-base';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function HomeScreen() {
-    const [count, setCount] = useState(0);
-    const incInProgress = countdown > 0;
+    const [loading, setLoading] = useState(false);
+    const [payload, setPayload] = useState(null);
+    // useEffect(() => {
+    //     setLoading(this.props.loading);
+    // }, [])
 
-    function handleIncrement() {
-        this.props.actions.Inc();
-    }
+    // useEffect(() => {
+    //     setPayload(this.props.payload);
+    // }, [])
 
-    function handleDecrement() {
-        this.props.actions.Dec();
-    }
-
-    function handleIncLaterClicked() {
-        if (incInProgress) {
-            dispatch({ type: "CANCEL_COUNTDOWN" });
-        } else {
-            dispatch({ type: "START_COUNTDOWN", countdown: 5 });
-        }
+    function handleFetchUser() {
+        this.props.actions.GetUserRequest();
     }
 
     return (
         <View style={homeStyles.container}>
+            <Spinner
+                visible={loading}
+                textContent={'Loading...'}
+                textStyle={homeStyles.spinnerTextStyle}
+            />
             <ScrollView style={homeStyles.container} contentContainerStyle={homeStyles.contentContainer}>
                 <View style={homeStyles.welcomeContainer}>
                     <Image
@@ -48,28 +49,21 @@ export default function HomeScreen() {
                 </View>
                 <View>
                     <Text style={{ padding: 10 }}>Using Redux-saga with hooks **EXPERIMENTAL**</Text>
-                    <Text>Current count : {count}</Text>
-                    <Button warning onPress={handleDecrement}>
-                        <Text>Decrement</Text>
+                    {/* {
+                        payload.map((o, i) => {
+                            <View key={i}>
+                                <Text>{o.data.email}</Text>
+                            </View>
+                        })
+                    } */}
+                    <Button warning onPress={handleFetchUser}>
+                        <Text>Fetch User</Text>
                     </Button>
-                    <Button primary onPress={handleIncrement}>
-                        <Text>Increment</Text>
-                    </Button>
-                    <Button danger onPress={handleIncLaterClicked}>
-                        <Text>{incInProgress ? "Cancel future increment" : "Increment after 5s"}</Text>
-                    </Button>
-                    <Text style={{ display: incInProgress ? "block" : "none" }}>
-                        {`Will increment after ${countdown}s...`}
-                    </Text>
                 </View>
             </ScrollView>
         </View>
     );
 }
-
-HomeScreen.navigationOptions = {
-    header: null,
-};
 
 
 

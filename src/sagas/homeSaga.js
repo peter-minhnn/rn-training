@@ -1,11 +1,19 @@
-import { takeEvery } from 'redux-saga/effects'
-import Api from './path/to/api'
+import { takeLatest, call, put } from 'redux-saga/effects';
+import { fetchGetUser } from '../commons';
+import { GET_USER_REQUEST } from '../constants';
+import { GetUserResponse, LoadingRequest } from '../actions';
+import Reactotron from 'reactotron-react-native';
 
-function* watchFetchProducts() {
-  yield takeEvery('PRODUCTS_REQUESTED', fetchProducts)
+function* fetchUsers(action) {
+  try {
+    yield put(LoadingRequest())
+    const users = yield call(fetchGetUser, action.userId);
+    yield put(GetUserResponse(users))
+  } catch (error) {
+    Reactotron.log(`Call api failed: ${error.message}`);
+  }
 }
 
-function* fetchProducts() {
-  const products = yield Api.fetch('/products')
-  console.log(products)
+export function* watchFetchUsers() {
+  yield takeLatest(GET_USER_REQUEST, fetchUsers)
 }

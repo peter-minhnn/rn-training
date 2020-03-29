@@ -11,7 +11,7 @@ const ConfigureStore = (initialState) => {
     const store = createStore(
         rootReducer,
         initialState,
-        compose(applyMiddleware(), window.devToolsExtension ? window.devToolsExtension() : f => f)
+        compose(applyMiddleware(sagaMiddleware), window.devToolsExtension ? window.devToolsExtension() : f => f)
     );
     //Run Saga middleware
     sagaMiddleware.run(rootSaga);

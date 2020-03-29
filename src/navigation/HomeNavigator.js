@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import HomeScreenF from '../components/HomeComponent';
 import SettingScreen from '../screens/SettingScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useWindowDimensions } from 'react-native';
@@ -19,28 +19,24 @@ export default function HomeNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <Drawer.Navigator drawerType={dimensions.width > 900 ? 'permanent' : 'front'}>
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Setting" component={SettingScreen} />
-      <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
-        <BottomTab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            title: 'Get Started',
-            tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="fas fa-home" />,
-          }}
-        />
-        <BottomTab.Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{
-            title: 'Resources',
-            tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="fas fa-setting" />,
-          }}
-        />
-      </BottomTab.Navigator>
-    </Drawer.Navigator>
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+      <BottomTab.Screen
+        name="Home"
+        component={HomeScreenF}
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-menu" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Setting"
+        component={SettingScreen}
+        options={{
+          title: 'Setting',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="settings" />,
+        }}
+      />
+    </BottomTab.Navigator>
   );
 }
 
