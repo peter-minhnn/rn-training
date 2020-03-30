@@ -1,13 +1,12 @@
 import * as React from 'react';
-import FontAwesome, { SolidIcons, RegularIcons, BrandIcons } from 'react-native-fontawesome';
 import Colors from '../constants/Colors';
-import { Icon } from 'native-base';
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
 
 export default function TabBarIcon(props) {
-    console.log(props)
     return (
-        <Icon
-        android={props.name}
+        <MaterialCommunityIcons
+            name={props.name}
+            size={props.size}
             color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
         />
     );

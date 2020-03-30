@@ -19,13 +19,18 @@ export default function HomeNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator
+      initialRouteName={INITIAL_ROUTE_NAME}
+      tabBarOptions={{
+        showIcon: true,
+        showLabel: true
+      }}>
       <BottomTab.Screen
         name="Home"
         component={HomeScreenF}
         options={{
           title: 'Home',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-menu" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="home" size={30} />,
         }}
       />
       <BottomTab.Screen
