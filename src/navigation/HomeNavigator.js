@@ -23,14 +23,17 @@ export default function HomeNavigator({ navigation, route }) {
       initialRouteName={INITIAL_ROUTE_NAME}
       tabBarOptions={{
         showIcon: true,
-        showLabel: true
+        activeTintColor: '#2f95dc',
+        style: {
+          height: 60
+        }
       }}>
       <BottomTab.Screen
         name="Home"
         component={HomeScreenF}
         options={{
-          title: 'Home',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="home" size={30} />,
+          //title: 'Home',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="home"/>
         }}
       />
       <BottomTab.Screen

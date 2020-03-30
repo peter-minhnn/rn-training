@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Colors from '../constants/Colors';
-import { MaterialCommunityIcons } from 'react-native-vector-icons';
+import { Icon } from 'native-base';
 
 export default function TabBarIcon(props) {
     return (
-        <MaterialCommunityIcons
+        <Icon
             name={props.name}
-            size={props.size}
+            size={30}
+            style={{marginTop: 40}}
             color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
         />
     );
