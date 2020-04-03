@@ -2,10 +2,11 @@ import * as React from 'react';
 import { Platform, StatusBar, YellowBox } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
-import MainAppNavigator from './src/navigation/MainNavigator';
+import RootNavigator from './src/navigation/RootNavigator';
 import useLinking from './src/navigation/useLinking';
 import ConfigureStore from './src/store/ConfigureStore';
-import { Provider } from 'react-redux'; 
+import { Provider } from 'react-redux';
+import 'react-native-gesture-handler';
 //Ignore warning
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader', 'Method `jumpToIndex` is deprecated']);
 
@@ -42,8 +43,8 @@ export default function App(props) {
     return (
       <Provider store={store}>
         {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <MainAppNavigator />
+        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>        
+            <RootNavigator />
         </NavigationContainer>
       </Provider>
     );

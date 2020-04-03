@@ -40,6 +40,8 @@ target 'EcommerceStore' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'EcommerceStoreTests' do
     inherit! :search_paths
     # Pods for testing

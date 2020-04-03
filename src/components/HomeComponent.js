@@ -4,14 +4,10 @@ import { connect } from 'react-redux';
 import HomeScreen from '../screens/HomeScreen';
 import * as homeActions from '../actions/homeAction';
 
-class HomeScreenF extends Component {
-    render() {
-        return (
-            <HomeScreen
-                
-            />
-        )
-    }
+function HomeScreenF() {
+    return (
+        <HomeScreen />
+    )
 }
 
 const mapDispatchToProps = (dispatch) => ({
