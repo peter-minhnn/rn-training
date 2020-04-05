@@ -29,7 +29,7 @@ const SettingStack = createStackNavigator();
 
 //Home Navigation
 const HomeStackScreen = () => (
-  <HomeStack.Navigator>
+  <HomeStack.Navigator headerMode='none'>
     <HomeStack.Screen name="Home" component={HomeComponent} />
   </HomeStack.Navigator>
 );
@@ -48,7 +48,7 @@ const BottomTabsScreen = () => (
     tabBarOptions={{
       allowFontScaling: true,
       tabStyle: {
-        height: 50,
+        height: 50
       },
       style: {
         height: 60
@@ -56,27 +56,24 @@ const BottomTabsScreen = () => (
       activeTintColor: '#2f95dc',
       adaptive: true,
       keyboardHidesTabBar: true,
-      labelStyle: {
-        height: '100%'
-      }
     }}
-    //tabBar={props => <MyTabBar {...props} />}
+    tabBar={props => <MyTabBar {...props} />}
   >
     <BottomTabs.Screen
       name="Home"
       component={HomeStackScreen}
-      options={{
-        tabBarLabel: ({ focused, navigation }) => <TabBarLabel focused={focused} name='Home' navigation={navigation}/>,
-        tabBarIcon: ({ focused, navigation }) => <TabBarIcon focused={focused} name='home' navigation={navigation}/>
-      }}
+      // options={{
+      //   tabBarLabel: ({ focused, navigation }) => <TabBarLabel focused={focused} name='Home' navigation={navigation}/>,
+      //   tabBarIcon: ({ focused, navigation }) => <TabBarIcon focused={focused} name='home' navigation={navigation}/>
+      // }}
     />
     <BottomTabs.Screen
       name="Setting"
       component={SettingStackScreen}
-      options={{
-        tabBarLabel: ({ focused, navigation }) => <TabBarLabel focused={focused} name='Setting' navigation={navigation}/>,
-        tabBarIcon: ({ focused, navigation }) => <TabBarIcon focused={focused} name='settings' navigation={navigation}/>
-      }}
+      // options={{
+      //   tabBarLabel: ({ focused, navigation }) => <TabBarLabel focused={focused} name='Setting' navigation={navigation}/>,
+      //   tabBarIcon: ({ focused, navigation }) => <TabBarIcon focused={focused} name='settings' navigation={navigation}/>
+      // }}
     />
   </BottomTabs.Navigator>
 );
@@ -84,7 +81,7 @@ const BottomTabsScreen = () => (
 //Drawer Navigation
 const Drawer = createDrawerNavigator();
 const DrawerScreen = () => (
-  <Drawer.Navigator initialRouteName="Profile">
+  <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
     <Drawer.Screen name="Home" component={BottomTabsScreen} />
   </Drawer.Navigator>
 );

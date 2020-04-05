@@ -1,19 +1,26 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
-import { fetchGetUser } from '../commons';
-import { GET_USER_REQUEST } from '../constants';
-import { GetUserResponse, LoadingRequest } from '../actions';
+import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
+import { callApi } from '../commons';
+import { GET_MENU_REQUEST } from '../constants';
+import { GetMenuResponse, LoadingRequest, GetMenuFailed } from '../actions';
 import Reactotron from 'reactotron-react-native';
 
-function* fetchUsers(action) {
+const getData = async () => {
+  const response = await callApi('GET', 'api/user/getUser');
+  return response;
+}
+
+function* fetchUsers() {
   try {
     yield put(LoadingRequest())
-    const users = yield call(fetchGetUser, action.userId);
-    yield put(GetUserResponse(users))
+    const menus = yield call(getData)
+    yield put(GetMenuResponse(menus))
   } catch (error) {
-    Reactotron.log(`Call api failed: ${error.message}`);
+    yield put(GetMenuFailed(error.message))
   }
 }
 
 export function* watchFetchUsers() {
-  yield takeLatest(GET_USER_REQUEST, fetchUsers)
+  yield takeEvery(GET_MENU_REQUEST, fetchUsers)
 }
+
+export default watchFetchUsers;

@@ -62,12 +62,25 @@ export const TabBarLabel = (props) => {
     );
 }
 
-export const MyTabBar = ({ state, descriptors, navigation, focused }) => {
+export const MyTabBar = ({ state, descriptors, navigation }) => {
     return (
-        <View style={{ flexDirection: 'row', display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>
+        <View
+            style={{
+                flexDirection: 'row',
+                display: 'flex',
+                height: 60,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#FFFFFF',
+                shadowColor: '#ccc',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 1,
+                shadowRadius: 1,
+                elevation: 10,
+            }}
+        >
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
-                console.log('MyTabBar', focused)
                 const label =
                     options.tabBarLabel !== undefined
                         ? options.tabBarLabel
@@ -105,13 +118,14 @@ export const MyTabBar = ({ state, descriptors, navigation, focused }) => {
                         onLongPress={onLongPress}
                         style={{ flex: 1, height: 60, justifyContent: 'center', alignItems: 'center' }}
                         key={index}
+                        activeOpacity={0.8}
                     >
                         <Icon
                             name={route.name === 'Home' ? 'home' : 'settings'}
                             size={30}
-                            style={{ color: `${focused ? Colors.tabIconSelected : Colors.tabIconDefault}`, marginTop: 10 }}
+                            style={{ color: `${isFocused ? Colors.tabIconSelected : Colors.tabIconDefault}`, marginTop: 10 }}
                         />
-                        <Text style={{ color: `${focused ? Colors.tabIconSelected : Colors.tabIconDefault}` }}>
+                        <Text style={{ color: `${isFocused ? Colors.tabIconSelected : Colors.tabIconDefault}` }}>
                             {route.name}
                         </Text>
                     </TouchableOpacity>

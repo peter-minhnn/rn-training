@@ -10,58 +10,120 @@ import {
 } from 'react-native';
 import ReactNativeIcon from '../assets/img/react-native-icon.svg';
 import { homeStyles } from '../styles';
-import { Button } from 'native-base';
+import {
+    Container,
+    Header,
+    Left,
+    Body,
+    Right,
+    Button,
+    Icon,
+    Title,
+    Input,
+    Content,
+    Thumbnail
+} from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { useDispatch } from 'react-redux';
 
-export default function HomeScreen() {
+export default function HomeScreen(props) {
+    const { navigation } = props;
     const [loading, setLoading] = useState(false);
-    const [payload, setPayload] = useState(null);
-    // useEffect(() => {
-    //     setLoading(this.props.loading);
-    // }, [])
+    const [payload, setPayload] = useState([]);
+    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     setPayload(this.props.payload);
-    // }, [])
+    useEffect(() => {
+        dispatch(props.actions.GetMenuRequest())
+    }, [])
 
-    function handleFetchUser() {
-        this.props.actions.GetUserRequest();
+    useEffect(() => {
+        setLoading(props.loading);
+        return () => setLoading(false)
+    }, [props.loading])
+
+    useEffect(() => {
+        setPayload(props.payload);
+        return () => setPayload([])
+    }, [props.payload])
+
+
+    function handleToggleDrawer() {
+        navigation.openDrawer();
     }
 
+    const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
     return (
-        <View style={homeStyles.container}>
-            <Spinner
-                visible={loading}
-                textContent={'Loading...'}
-                textStyle={homeStyles.spinnerTextStyle}
-            />
-            <ScrollView style={homeStyles.container} contentContainerStyle={homeStyles.contentContainer}>
-                <View style={homeStyles.welcomeContainer}>
-                    <Image
-                        source={
-                            __DEV__
-                                ? require('../assets/img/robot-dev.png')
-                                : require('../assets/img/robot-prod.png')
-                        }
-                        style={homeStyles.welcomeImage}
-                    />
-                    <ReactNativeIcon width={100} height={50} />
-                </View>
-                <View>
-                    <Text style={{ padding: 10 }}>Using Redux-saga with hooks **EXPERIMENTAL**</Text>
-                    {/* {
-                        payload.map((o, i) => {
-                            <View key={i}>
-                                <Text>{o.data.email}</Text>
-                            </View>
-                        })
-                    } */}
-                    <Button warning onPress={handleFetchUser}>
-                        <Text>Fetch User</Text>
+        <Container>
+            <Header style={{ backgroundColor: '#2f95dc' }}>
+                <Left style={{ flex: 1 }}>
+                    <Button transparent onPress={handleToggleDrawer}>
+                        <Icon name='menu' />
                     </Button>
-                </View>
-            </ScrollView>
-        </View>
+                </Left>
+                <Body style={{ flex: 0 }}>
+                    <Title>Ecommerce Store</Title>
+                </Body>
+                <Right style={{ flex: 1 }}>
+                    <Button transparent>
+                        <Icon name='ios-cart' />
+                    </Button>
+                </Right>
+            </Header>
+            <Content>
+                <ScrollView contentContainerStyle={homeStyles.container}>
+                    <View style={homeStyles.searchBarContainer}>
+                        <View style={homeStyles.searchBarChild}>
+                            <Icon active name='ios-search' style={homeStyles.searchBarIcon} />
+                            <Input placeholder='Search for products...' />
+                        </View>
+                    </View>
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        scrollEventThrottle={200}
+                        decelerationRate="fast"
+                        contentContainerStyle={{ padding: 10 }}
+                    >
+                        {
+                            payload.map((object, index) =>
+                                <View key={index} style={{ display: 'flex', flexDirection: 'column', width: 85, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Thumbnail source={{ uri: `${object.image}` }} />
+                                    <Text style={{ fontSize: 12 }}>{object.menuName}</Text>
+                                </View>
+                            )
+                        }
+                    </ScrollView>
+                    <View style={homeStyles.contentContainer}>
+                        <View style={homeStyles.welcomeContainer}>
+                            <Image
+                                source={
+                                    __DEV__
+                                        ? require('../assets/img/robot-dev.png')
+                                        : require('../assets/img/robot-prod.png')
+                                }
+                                style={homeStyles.welcomeImage}
+                            />
+                            <ReactNativeIcon width={100} height={50} />
+                        </View>
+                        <View>
+                            <Text>Using Redux-saga with hooks **EXPERIMENTAL**</Text>
+                            {/* {
+                                payload.map((o, i) => {
+                                    <View key={i}>
+                                        <Text>{o.data.email}</Text>
+                                    </View>
+                                })
+                            } */}
+                            <Button block info>
+                                <Text style={{ color: '#FFFFFF' }}>Fetch User</Text>
+                            </Button>
+                        </View>
+
+                        <Spinner visible={loading} textContent={'Loading...'} textStyle={homeStyles.spinnerTextStyle} />
+                    </View>
+                </ScrollView>
+            </Content>
+        </Container>
     );
 }
 

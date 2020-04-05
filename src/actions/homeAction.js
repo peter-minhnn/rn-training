@@ -1,23 +1,21 @@
 import * as types from '../constants/ActionsType';
 
 //Action request get user by call api
-const LoadingRequest = () => {
-    dispatch({ type: types.LOADING_REQUEST, loading: true });
+export const LoadingRequest = () => {
+    return { type: types.LOADING_REQUEST, loading: true };
 }
 
 //Action request get user by call api
-const GetUserRequest = (userId) => {
-    dispatch({ type: types.GET_USER_REQUEST, userId: userId });
+export const GetMenuRequest = () => {
+    return { type: types.GET_MENU_REQUEST };
 }
 
 //Action reponse get user by call api
-const GetUserResponse = (result) => {
-    dispatch({ type: types.GET_USER_RESPONSE, payload: result });
+export const GetMenuResponse = (result) => {
+    return { type: types.GET_MENU_RESPONSE, payload: result };
 }
 
-
-export {
-    LoadingRequest,
-    GetUserRequest,
-    GetUserResponse
-};
+//Action reponse get user by call api
+export const GetMenuFailed = (message) => {
+    return { type: types.GET_MENU_FAILED, error: message };
+}
