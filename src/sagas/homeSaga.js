@@ -5,7 +5,7 @@ import { GetMenuResponse, LoadingRequest, GetMenuFailed } from '../actions';
 import Reactotron from 'reactotron-react-native';
 
 const getData = async () => {
-  const response = await callApi('GET', 'api/user/getUser');
+  const response = await callApi('GET', 'api/store/getListTypeOfStore');
   return response;
 }
 

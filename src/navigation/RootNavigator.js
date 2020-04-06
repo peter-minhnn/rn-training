@@ -5,7 +5,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import HomeComponent from "../components/HomeComponent";
 import SettingScreen from "../screens/SettingScreen";
-import { TabBarIcon, TabBarLabel, MyTabBar } from '../components/TabBar';
+import { MyTabBar } from '../components/TabBar';
+import CustomDrawerContent from '../components/CustomDrawerContent';
 
 // const AuthStack = createStackNavigator();
 // const AuthStackScreen = () => (

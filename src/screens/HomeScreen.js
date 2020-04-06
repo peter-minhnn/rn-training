@@ -65,7 +65,7 @@ export default function HomeScreen(props) {
                 </Body>
                 <Right style={{ flex: 1 }}>
                     <Button transparent>
-                        <Icon name='ios-cart' />
+                        <Icon name='md-cart' />
                     </Button>
                 </Right>
             </Header>
@@ -107,13 +107,6 @@ export default function HomeScreen(props) {
                         </View>
                         <View>
                             <Text>Using Redux-saga with hooks **EXPERIMENTAL**</Text>
-                            {/* {
-                                payload.map((o, i) => {
-                                    <View key={i}>
-                                        <Text>{o.data.email}</Text>
-                                    </View>
-                                })
-                            } */}
                             <Button block info>
                                 <Text style={{ color: '#FFFFFF' }}>Fetch User</Text>
                             </Button>
