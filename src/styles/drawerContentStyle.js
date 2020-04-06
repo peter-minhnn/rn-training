@@ -2,11 +2,12 @@ import { StyleSheet } from 'react-native';
 
 export const drawerContentStyles = StyleSheet.create({
     sideMenuContainer: {
-        width: '100%',
-        height: '100%',
+        // width: '100%',
+        // height: '100%',
         backgroundColor: '#fff',
-        alignItems: 'center',
+        alignItems: 'baseline',
         paddingTop: 20,
+        paddingLeft: 10
     },
     sideMenuProfileIcon: {
         resizeMode: 'center',
