@@ -4,14 +4,45 @@ import Icon from 'react-native-vector-icons/AntDesign';
 const HeaderContext = createContext(null);
 const _navHeaderItems = [
     {
-        headerTitle: 'Home',
-        headerLeft: 'menu',
-        headerRight: 'md-cart'
+        typeScreen: 1,
+        data: [
+            
+        ]
     },
     {
         headerTitle: 'Home',
         headerLeft: 'menu',
         headerRight: 'md-cart'
+    },
+    {
+        headerTitle: 'Category',
+        headerLeft: 'arrowleft',
+        headerRight: ['search1', 'shoppingcart']
+    },
+    {
+        headerTitle: 'Product Detail',
+        headerLeft: 'arrowleft',
+        headerRight: ['search1', 'shoppingcart']
+    },
+    {
+        headerTitle: 'My Cart',
+        headerLeft: 'arrowleft',
+        headerRight: ''
+    },
+    {
+        headerTitle: 'Search',
+        headerLeft: 'arrowleft',
+        headerRight: 'shoppingcart'
+    },
+    {
+        headerTitle: 'Setting',
+        headerLeft: 'arrowleft',
+        headerRight: 'shoppingcart'
+    },
+    {
+        headerTitle: 'Profile',
+        headerLeft: 'arrowleft',
+        headerRight: 'shoppingcart'
     },
 ];
 

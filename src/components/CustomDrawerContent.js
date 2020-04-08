@@ -102,13 +102,11 @@ export default function CustomDrawerContent({ progress, navigation, ...rest }) {
           {
             items.map((item, key) => (
               <View key={key} style={[key === 2 ? '' : { borderBottomColor: '#CCC', borderBottomWidth: 1 }]}>
-                <View>
-                  <Text style={{
-                    fontSize: 14,
-                    color: '#5f6368',
-                    paddingLeft: 20
-                  }}>{item.title}</Text>
-                </View>
+                <Text style={{
+                  fontSize: 14,
+                  color: '#5f6368',
+                  paddingLeft: 20
+                }}>{item.title}</Text>
                 {
                   item.data.map((subItem, i) => (
                     <View
