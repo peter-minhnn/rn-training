@@ -54,7 +54,7 @@ export default function HomeScreen(props) {
     const uri = "https://facebook.github.io/react-native/docs/assets/favicon.png";
     return (
         <Container>
-            <Header style={{ backgroundColor: '#2f95dc' }}>
+            {/* <Header style={{ backgroundColor: '#2f95dc' }}>
                 <Left style={{ flex: 1 }}>
                     <Button transparent onPress={handleToggleDrawer}>
                         <Icon name='menu' />
@@ -68,7 +68,7 @@ export default function HomeScreen(props) {
                         <Icon name='md-cart' />
                     </Button>
                 </Right>
-            </Header>
+            </Header> */}
             <Content>
                 <ScrollView contentContainerStyle={homeStyles.container}>
                     <View style={homeStyles.searchBarContainer}>

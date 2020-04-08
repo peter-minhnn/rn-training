@@ -30,14 +30,14 @@ const SettingStack = createStackNavigator();
 
 //Home Navigation
 const HomeStackScreen = () => (
-  <HomeStack.Navigator headerMode='none'>
+  <HomeStack.Navigator screenOptions={{ header: props => <HeaderComponent {...props} /> }}>
     <HomeStack.Screen name="Home" component={HomeComponent} />
   </HomeStack.Navigator>
 );
 
 //Setting Navigation
 const SettingStackScreen = () => (
-  <SettingStack.Navigator>
+  <SettingStack.Navigator screenOptions={{ header: props => <HeaderComponent {...props} /> }}>
     <SettingStack.Screen name="Setting" component={SettingScreen} />
   </SettingStack.Navigator>
 );
@@ -63,18 +63,18 @@ const BottomTabsScreen = () => (
     <BottomTabs.Screen
       name="Home"
       component={HomeStackScreen}
-      // options={{
-      //   tabBarLabel: ({ focused, navigation }) => <TabBarLabel focused={focused} name='Home' navigation={navigation}/>,
-      //   tabBarIcon: ({ focused, navigation }) => <TabBarIcon focused={focused} name='home' navigation={navigation}/>
-      // }}
+    // options={{
+    //   tabBarLabel: ({ focused, navigation }) => <TabBarLabel focused={focused} name='Home' navigation={navigation}/>,
+    //   tabBarIcon: ({ focused, navigation }) => <TabBarIcon focused={focused} name='home' navigation={navigation}/>
+    // }}
     />
     <BottomTabs.Screen
       name="Setting"
       component={SettingStackScreen}
-      // options={{
-      //   tabBarLabel: ({ focused, navigation }) => <TabBarLabel focused={focused} name='Setting' navigation={navigation}/>,
-      //   tabBarIcon: ({ focused, navigation }) => <TabBarIcon focused={focused} name='settings' navigation={navigation}/>
-      // }}
+    // options={{
+    //   tabBarLabel: ({ focused, navigation }) => <TabBarLabel focused={focused} name='Setting' navigation={navigation}/>,
+    //   tabBarIcon: ({ focused, navigation }) => <TabBarIcon focused={focused} name='settings' navigation={navigation}/>
+    // }}
     />
   </BottomTabs.Navigator>
 );
