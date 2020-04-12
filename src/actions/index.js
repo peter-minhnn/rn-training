@@ -1,3 +1,3 @@
-export * from './homeAction';
-export * from './authAction';
-export * from './commonAction';
+export * as homeActions from './homeAction';
+export * as authActions from './authAction';
+export * as commonActions from './commonAction';

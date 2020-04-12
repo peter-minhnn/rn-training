@@ -126,7 +126,6 @@ export default function CustomDrawerContent({ progress, navigation, ...rest }) {
                           width: '100%'
                         }}
                       >
-
                         <View style={{ marginRight: 10, marginLeft: 20 }}>
                           <Icon name={subItem.navOptionThumb} size={25} style={{ color: '#2f95dc' }} />
                         </View>
