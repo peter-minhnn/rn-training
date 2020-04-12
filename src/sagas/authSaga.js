@@ -1,7 +1,7 @@
 import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
 import { callApi } from '../commons';
 import { SIGN_IN_REQUEST } from '../constants';
-import { commonActions } from '../actions';
+import { LoadingRequest, ApiResponse, ApiFailed } from '../actions';
 import Reactotron from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -13,19 +13,19 @@ const getData = async (data) => {
 
 function* fetchSignIn(action) {
   try {
-    yield put(commonActions.LoadingRequest())
+    yield put(LoadingRequest())
     const result = yield call(getData, action.data)
     if (result.status === 1) {
       AsyncStorage.setItem('signInToken', result.token);
     }
-    yield put(commonActions.ApiResponse(result))
+    yield put(ApiResponse(result))
   } catch (error) {
-    yield put(commonActions.ApiFailed(error.message))
+    yield put(ApiFailed(error.message))
   }
 }
 
 export function* watchFetchSignIn() {
-  yield takeEvery(SIGN_IN_REQUEST, fetchSignIn)
+  yield takeLatest(SIGN_IN_REQUEST, fetchSignIn)
 }
 
 export default watchFetchSignIn;

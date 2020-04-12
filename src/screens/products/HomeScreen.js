@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
     Image,
     Platform,
@@ -26,7 +26,7 @@ import HeaderComponent from '../../components/HeaderComponent';
 export default function HomeScreen(props) {
     const { navigation } = props;
     const [loading, setLoading] = useState(false);
-    const [payload, setPayload] = useState([]);
+    const [payload, setPayload] = useState({});
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -35,11 +35,18 @@ export default function HomeScreen(props) {
 
     useEffect(() => {
         setLoading(props.loading);
+
         return () => setLoading(false)
     }, [props.loading])
 
     useEffect(() => {
-        setPayload(props.payload);
+        console.log(props.payload)
+        if (payload.length > 0) {
+            setPayload(Object.assign({}, props.payload, payload));
+        } else {
+            setPayload(props.payload);
+        }
+
         return () => setPayload([])
     }, [props.payload])
 
@@ -72,14 +79,16 @@ export default function HomeScreen(props) {
                         decelerationRate="fast"
                         contentContainerStyle={{ padding: 10 }}
                     >
-                        {/* {
-                            payload.map((object, index) =>
+                        {
+                            payload.length > 0 ? 
+                            payload.subcategories.map((object, index) =>
                                 <View key={index} style={{ display: 'flex', flexDirection: 'column', width: 85, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Thumbnail source={{ uri: `${object.image}` }} />
-                                    <Text style={{ fontSize: 12 }} numberOfLines={1}>{object.menuName}</Text>
+                                    <Thumbnail source={{ uri: `${object.thumb.replace('//', '')}` }} />
+                                    <Text style={{ fontSize: 12 }} numberOfLines={1}>{object.name}</Text>
                                 </View>
                             )
-                        } */}
+                            : null
+                        }
                     </ScrollView>
                     <View style={homeStyles.contentContainer}>
                         <View style={homeStyles.welcomeContainer}>
