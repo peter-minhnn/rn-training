@@ -3,9 +3,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SignInScreen from '../../screens/auth/SignInScreen';
 import * as authActions from '../../actions/authAction';
-
+import HomeComp from './HomeComponent';
 class SignInComp extends Component {
     render() {
+        if(Object.keys(this.props.payload).length > 0 && this.props.payload.status === 1){
+            return (
+                <HomeComp />
+            )
+        }
         return (
             <SignInScreen
                 navigation={this.props.navigation}

@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import HomeComp from '../components/screen/HomeComponent';
 import SignInComp from '../components/screen/SignInComponent';
+import SignUpScreen from '../screens/auth/SignUpScreen';
 import SettingScreen from '../screens/others/SettingScreen';
 //import { MyTabBar } from '../components/TabBar'; used later
 import CustomDrawerContent from '../components/CustomDrawerContent';
@@ -16,7 +17,7 @@ const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator headerMode='none' initialRouteName='SignIn'>
     <AuthStack.Screen name='SignIn' component={SignInComp} />
-    <AuthStack.Screen name='SignUp' component={SignUp} />
+    <AuthStack.Screen name='SignUp' component={SignUpScreen} />
   </AuthStack.Navigator>
 );
 
@@ -85,9 +86,6 @@ const Drawer = createDrawerNavigator();
 const DrawerScreen = () => (
   <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
     <Drawer.Screen name='Home' component={HomeStackScreen} />
-    <Drawer.Screen name='MyCart' component={MyCartStackScreen} />
-    <Drawer.Screen name='Profile' component={ProfileStackScreen} />
-    <Drawer.Screen name='Setting' component={SettingStackScreen} />
   </Drawer.Navigator>
 );
 
@@ -95,12 +93,14 @@ const DrawerScreen = () => (
 const RootStack = createStackNavigator();
 export default function RootStackScreen(props) {
   return (
-    <RootStack.Navigator headerMode='none'>
-      {props.token == null ? (
-        <RootStack.Screen name="Auth" component={AuthStackScreen} />
-      ) : (
-          <RootStack.Screen name="App" component={DrawerScreen} />
-        )}
+    <RootStack.Navigator headerMode='none' initialRouteName='App'>
+      {
+        props.token == null ? (
+          <RootStack.Screen name="Auth" component={AuthStackScreen} />
+        ) : (
+            <RootStack.Screen name="App" component={DrawerScreen} />
+          )
+      }
     </RootStack.Navigator>
   )
 };

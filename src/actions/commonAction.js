@@ -6,11 +6,11 @@ export const LoadingRequest = () => {
 }
 
 //Action response payload result when call api success
-export const ApiResponse = (result) => {
-    return { type: types.API_RESPONSE, loading: false, payload: result };
+export const ApiResponse = (type, result) => {
+    return { type: type, loading: false, payload: result };
 }
 
 //Action response error when calling api failed
-export const ApiFailed = (error) => {
-    return { type: types.API_FAILED, error: error };
+export const ApiFailed = (type, error) => {
+    return { type: type, error: error };
 }

@@ -41,7 +41,7 @@ export default function App(props) {
     }
 
     loadResourcesAndDataAsync();
-  }, [token]);
+  }, []);
 
   if (!isLoadingComplete) {
     return null;

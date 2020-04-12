@@ -5,4 +5,12 @@ const GetMenuRequest = () => {
     return { type: types.GET_MENU_REQUEST };
 }
 
-export { GetMenuRequest }
+const GetMenuResponse = (result) => {
+    return { type: types.GET_MENU_RESPONSE, payload: result };
+}
+
+const GetMenuFailed = (error) => {
+    return { type: types.GET_MENU_FAILED, error: error };
+}
+
+export { GetMenuRequest, GetMenuResponse, GetMenuFailed }

@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import { useDispatch } from 'react-redux';
 import { DotIndicator } from 'react-native-indicators';
-import SignInBackGround from '../assets/img/login_background.svg';
+import SignInBackGround from '../../assets/img/login_background.svg';
 
 export default function SignInScreen(props) {
     const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function SignInScreen(props) {
         setPayload(props.payload);
 
         if (payload.status === 1) {
-            props.navigation.navigate('App');
+            return props.navigation.navigate('App', { screen: 'Home' });
         }
         else if (payload.status === 0) {
             handleShowAlert(payload.error);

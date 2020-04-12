@@ -1,4 +1,4 @@
-import { LOADING_REQUEST, API_FAILED, API_RESPONSE } from '../constants';
+import { LOADING_REQUEST, GET_MENU_FAILED, GET_MENU_RESPONSE } from '../constants';
 import _ from 'lodash';
 
 const initialState = {
@@ -12,9 +12,9 @@ function homeReducer(state = initialState, action) {
     switch (action.type) {
         case LOADING_REQUEST:
             return { ...newState, loading: true };
-        case API_RESPONSE:
+        case GET_MENU_RESPONSE:
             return { ...newState, loading: false, payload: action.payload };
-        case API_FAILED:
+        case GET_MENU_FAILED:
             return {...newState, loading: false, error: action.error}
         default:
             return {...newState};

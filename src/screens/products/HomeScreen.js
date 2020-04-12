@@ -26,7 +26,7 @@ import HeaderComponent from '../../components/HeaderComponent';
 export default function HomeScreen(props) {
     const { navigation } = props;
     const [loading, setLoading] = useState(false);
-    const [payload, setPayload] = useState({});
+    const [subcategories, setCategory] = useState([]);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -40,14 +40,11 @@ export default function HomeScreen(props) {
     }, [props.loading])
 
     useEffect(() => {
-        console.log(props.payload)
-        if (payload.length > 0) {
-            setPayload(Object.assign({}, props.payload, payload));
-        } else {
-            setPayload(props.payload);
+        console.log(subcategories)
+        if (Object.keys(props.payload).length > 0 && props.payload != undefined) {
+            setCategory(props.payload.subcategories)
         }
-
-        return () => setPayload([])
+        return () => setCategory([])
     }, [props.payload])
 
     function handleFetchUser() {
@@ -80,14 +77,15 @@ export default function HomeScreen(props) {
                         contentContainerStyle={{ padding: 10 }}
                     >
                         {
-                            payload.length > 0 ? 
-                            payload.subcategories.map((object, index) =>
+                            subcategories.length > 0 ?
+                            subcategories.map((object, index) =>
                                 <View key={index} style={{ display: 'flex', flexDirection: 'column', width: 85, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Thumbnail source={{ uri: `${object.thumb.replace('//', '')}` }} />
+                                    <View style={{ borderWidth: 1, borderRadius: 50 }} >
+                                        <Thumbnail source={{ uri: `http:${object.thumb}` }} width={10} height={10} />
+                                    </View>
                                     <Text style={{ fontSize: 12 }} numberOfLines={1}>{object.name}</Text>
                                 </View>
-                            )
-                            : null
+                            ) : null
                         }
                     </ScrollView>
                     <View style={homeStyles.contentContainer}>

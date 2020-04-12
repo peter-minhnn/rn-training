@@ -31,21 +31,13 @@ export default function SignInScreen(props) {
     }, [disable, email, password])
 
     useEffect(() => {
-        setPayload(props.payload);
-
-        if (payload.status === 1) {
-            props.navigation.navigate('App');
-        }
-        else if(payload.status === 0) {
-            handleShowAlert(payload.error);
-        }
-
-        if(props.error !== ''){
+        console.log(props.payload)
+        if (Object.keys(props.payload).length > 0 && props.payload.error !== '') {
             handleShowAlert(props.error);
         }
 
         return () => setPayload([])
-    }, [props.payload, props.error])
+    }, [props.payload])
 
     function handleSignIn() {
         let formDataUser = new FormData();

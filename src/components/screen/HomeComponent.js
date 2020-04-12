@@ -5,6 +5,7 @@ import HomeScreen from '../../screens/products/HomeScreen';
 import * as homeActions from '../../actions/homeAction';
 class HomeComp extends Component {
     render() {
+        console.log(this.props)
         return (
             <HomeScreen
                 navigation={this.props.navigation}
