@@ -1,43 +1,21 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import {
-    Image,
-    Platform,
-    Text,
-    TouchableOpacity,
-    View,
-    Alert,
-    ScrollView
-} from 'react-native';
+import { connect } from 'react-redux';
+import { Image, Platform, Text, TouchableOpacity, View, Alert, ScrollView } from 'react-native';
 import ReactNativeIcon from '../../assets/img/react-native-icon.svg';
 import { homeStyles } from '../../styles';
-import {
-    Container,
-    Button,
-    Icon,
-    Title,
-    Input,
-    Content,
-    Thumbnail
-} from 'native-base';
-import Spinner from 'react-native-loading-spinner-overlay';
+import { Container, Button, Icon, Title, Input, Content, Thumbnail } from 'native-base';
 import { useDispatch } from 'react-redux';
 import HeaderComponent from '../../components/HeaderComponent';
+import SpinnerOverLay from '../../components/SpinnerComponent';
 
-export default function HomeScreen(props) {
+function HomeScreen(props) {
     const { navigation } = props;
-    const [loading, setLoading] = useState(false);
     const [subcategories, setCategory] = useState([]);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(props.actions.GetMenuRequest())
+        dispatch(props.getMenuStore())
     }, [])
-
-    useEffect(() => {
-        setLoading(props.loading);
-
-        return () => setLoading(false)
-    }, [props.loading])
 
     useEffect(() => {
         if (Object.keys(props.payload).length > 0 && props.payload != undefined) {
@@ -77,14 +55,14 @@ export default function HomeScreen(props) {
                     >
                         {
                             subcategories.length > 0 ?
-                            subcategories.map((object, index) =>
-                                <View key={index} style={{ display: 'flex', flexDirection: 'column', width: 85, justifyContent: 'center', alignItems: 'center' }}>
-                                    <View style={{ borderWidth: 1, borderRadius: 50 }} >
-                                        <Thumbnail source={{ uri: `http:${object.thumb}` }} width={10} height={10} />
+                                subcategories.map((object, index) =>
+                                    <View key={index} style={{ display: 'flex', flexDirection: 'column', width: 85, justifyContent: 'center', alignItems: 'center' }}>
+                                        <View style={{ borderWidth: 1, borderRadius: 50 }} >
+                                            <Thumbnail source={{ uri: `http:${object.thumb}` }} width={10} height={10} />
+                                        </View>
+                                        <Text style={{ fontSize: 12 }} numberOfLines={1}>{object.name}</Text>
                                     </View>
-                                    <Text style={{ fontSize: 12 }} numberOfLines={1}>{object.name}</Text>
-                                </View>
-                            ) : null
+                                ) : null
                         }
                     </ScrollView>
                     <View style={homeStyles.contentContainer}>
@@ -105,8 +83,7 @@ export default function HomeScreen(props) {
                                 <Text style={{ color: '#FFFFFF' }}>Fetch User</Text>
                             </Button>
                         </View>
-
-                        <Spinner visible={loading} textContent={'Loading...'} textStyle={homeStyles.spinnerTextStyle} />
+                       <SpinnerOverLay loading={props.loading}/>
                     </View>
                 </ScrollView>
             </Content>
@@ -115,4 +92,17 @@ export default function HomeScreen(props) {
 }
 
 
+const mapDispatchToProps = dispatch => {
+    return {
+        getMenuStore: () => dispatch({ type: 'GET_MENU_REQUEST' })
+    }
+}
+
+const mapStateToProps = (state) => ({
+    loading: state.homeReducer.loading,
+    payload: state.homeReducer.payload,
+    error: state.homeReducer.error,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 

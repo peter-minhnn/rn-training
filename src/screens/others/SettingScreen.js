@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Image, Platform, StyleSheet, TouchableOpacity, View, Alert, ScrollView } from 'react-native';
 import { Container, Header, Content, Button, ListItem, Text, Icon, Left, Body, Right, Switch } from 'native-base';
-export default function SettingScreen() {
+import HeaderComponent from '../../components/HeaderComponent';
+
+export default function SettingScreen(props) {
     return (
         <Container>
-            <Header />
+            <HeaderComponent {...props}/>
             <Content>
                 <ListItem icon>
                     <Left>

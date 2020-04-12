@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import HomeComp from '../components/screen/HomeComponent';
+import HomeScreen from '../screens/products/HomeScreen';
 import SignInComp from '../components/screen/SignInComponent';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import SettingScreen from '../screens/others/SettingScreen';
@@ -30,7 +30,7 @@ const ProfileStack = createStackNavigator();
 //Home Navigation
 const HomeStackScreen = () => (
   <HomeStack.Navigator headerMode='none' initialRouteName='Home'>
-    <HomeStack.Screen name='Home' component={HomeComp} />
+    <HomeStack.Screen name='Home' component={HomeScreen} />
     <HomeStack.Screen name='ProductDetail' component={ProductDetailScreen} />
   </HomeStack.Navigator>
 );
@@ -86,6 +86,9 @@ const Drawer = createDrawerNavigator();
 const DrawerScreen = () => (
   <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
     <Drawer.Screen name='Home' component={HomeStackScreen} />
+    <Drawer.Screen name="MyCart" component={MyCartStackScreen} />
+    <Drawer.Screen name="Profile" component={ProfileStackScreen} />
+    <Drawer.Screen name="Setting" component={SettingStackScreen} />
   </Drawer.Navigator>
 );
 
@@ -98,7 +101,10 @@ export default function RootStackScreen(props) {
         props.token == null ? (
           <RootStack.Screen name="Auth" component={AuthStackScreen} />
         ) : (
-            <RootStack.Screen name="App" component={DrawerScreen} />
+            <>
+              <RootStack.Screen name="App" component={DrawerScreen} />
+              <Drawer.Screen name="MyCart" component={MyCartStackScreen} />
+            </>
           )
       }
     </RootStack.Navigator>

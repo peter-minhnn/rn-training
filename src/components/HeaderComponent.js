@@ -15,13 +15,13 @@ const _navHeaderItems = ['Home', 'MyCart', 'Profile', 'MyOrders', 'Map', 'Settin
 export default function HeaderComponent(props) {
     const [headerTitle, setTitle] = useState('');
     const [isMultipleIcon, setIsMultipleIcon] = useState(false);
-    
+
     // Get a name of current screen
     const routeName = props.route != undefined ? props.route.name : 'Home';
 
     useLayoutEffect(() => {
         setTitle(routeName);
-        (_navHeaderItems.indexOf(routeName) === -1) ? setIsMultipleIcon(false) : setIsMultipleIcon(true)
+        (_navHeaderItems.indexOf(routeName) !== -1) ? setIsMultipleIcon(false) : setIsMultipleIcon(true)
         switch (routeName) {
             case 'MyCart':
                 setTitle('My Cart');
@@ -71,7 +71,7 @@ export default function HeaderComponent(props) {
                         <Button transparent onPress={handleNavigateSearch}>
                             <Icon name='search1' size={20} color='#FFFFFF' />
                         </Button>
-                        <Button transparent>
+                        <Button transparent onPress={handleNavigateMyCart}>
                             <Icon name='shoppingcart' size={20} color='#FFFFFF' />
                         </Button>
                     </View>
