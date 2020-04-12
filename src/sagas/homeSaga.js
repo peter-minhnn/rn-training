@@ -1,7 +1,7 @@
 import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
 import { callApi } from '../commons';
 import { GET_MENU_REQUEST } from '../constants';
-import { GetMenuResponse, LoadingRequest, GetMenuFailed } from '../actions';
+import { LoadingRequest, ApiResponse, ApiFailed } from '../actions';
 import Reactotron from 'reactotron-react-native';
 
 const getData = async () => {
@@ -13,9 +13,9 @@ function* fetchUsers() {
   try {
     yield put(LoadingRequest())
     const menus = yield call(getData)
-    yield put(GetMenuResponse(menus))
+    yield put(ApiResponse(menus))
   } catch (error) {
-    yield put(GetMenuFailed(error.message))
+    yield put(ApiFailed(error.message))
   }
 }
 

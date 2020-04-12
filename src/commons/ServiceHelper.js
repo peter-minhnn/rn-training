@@ -1,8 +1,8 @@
-import { API_ROOT } from '../constants';
+import { API_ROOT_DEV, API_ROOT_PROD } from '../constants';
 import Reactotron from 'reactotron-react-native';
 
 export const callApi = async (_type = 'GET', _url = '', _data = null) => {
-    const fullUrl = (_url.indexOf(API_ROOT) === -1) ? API_ROOT + _url : _url;
+    const fullUrl = (_url.indexOf(`${__DEV__ ? API_ROOT_DEV : API_ROOT_PROD}`) === -1) ? `${__DEV__ ? API_ROOT_DEV : API_ROOT_PROD}` + _url : _url;
     let method = _type.toUpperCase.toString();
     if (_type === 'GET') {
         return await fetch(fullUrl)
@@ -20,12 +20,8 @@ export const callApi = async (_type = 'GET', _url = '', _data = null) => {
     }
     else {
         return await fetch(fullUrl, {
-            method: method,
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(_data)
+            method: _type,
+            body: _data
         }).then(response => {
             if (response.status === 200) {
                 return response.json();
@@ -34,11 +30,8 @@ export const callApi = async (_type = 'GET', _url = '', _data = null) => {
                 throw new Error('Something went wrong on api server');
             }
         }).then(json => {
-            return json.data;
+            return json;
         })
             .catch(error => { Reactotron.log(error.message) });
     }
 };
-
-//User call api
-//export const fetchGetMenu = () =>  callApi('GET', `/api/store/getMenuStore`);

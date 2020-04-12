@@ -7,8 +7,9 @@ import {
 } from '@react-navigation/drawer';
 import Animated from 'react-native-reanimated';
 import { drawerContentStyles } from '../styles'
-import { Icon } from 'native-base';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { Dimensions } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get('screen');
 const _navItem = [
@@ -17,24 +18,24 @@ const _navItem = [
     isShow: true,
     data: [
       {
-        navOptionThumb: 'ios-person',
+        navOptionThumb: 'user',
         navOptionName: 'My Profile',
         screenToNavigate: 'Profile',
       },
       {
-        navOptionThumb: 'ios-heart',
+        navOptionThumb: 'heart',
         navOptionName: 'My Wish List',
         screenToNavigate: 'WishList',
       },
       {
-        navOptionThumb: 'ios-cart',
+        navOptionThumb: 'shoppingcart',
         navOptionName: 'My Cart',
-        screenToNavigate: 'Cart',
+        screenToNavigate: 'MyCart',
       },
       {
-        navOptionThumb: 'md-cart',
+        navOptionThumb: 'profile',
         navOptionName: 'My Orders',
-        screenToNavigate: 'Cart',
+        screenToNavigate: 'MyOrders',
       }
     ]
   },
@@ -43,12 +44,12 @@ const _navItem = [
     isShow: true,
     data: [
       {
-        navOptionThumb: 'md-mail',
+        navOptionThumb: 'mail',
         navOptionName: 'Email',
         screenToNavigate: '',
       },
       {
-        navOptionThumb: 'md-call',
+        navOptionThumb: 'phone',
         navOptionName: 'Call',
         screenToNavigate: '',
       }
@@ -59,9 +60,14 @@ const _navItem = [
     isShow: true,
     data: [
       {
-        navOptionThumb: 'md-share',
+        navOptionThumb: 'sharealt',
         navOptionName: 'Share',
         screenToNavigate: '',
+      },
+      {
+        navOptionThumb: 'setting',
+        navOptionName: 'Setting',
+        screenToNavigate: 'Setting',
       }
     ]
   }
@@ -109,29 +115,30 @@ export default function CustomDrawerContent({ progress, navigation, ...rest }) {
                 }}>{item.title}</Text>
                 {
                   item.data.map((subItem, i) => (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingTop: 10,
-                        paddingBottom: 10,
-                        backgroundColor: '#ffffff'
-                      }}
-                      key={i}
-                    >
-
-                      <View style={{ marginRight: 10, marginLeft: 20 }}>
-                        <Icon name={subItem.navOptionThumb} size={25} style={{ color: '#2f95dc' }} />
-                      </View>
-                      <Text
+                    <TouchableOpacity activeOpacity={0.6} onPress={() => { navigation.navigate(subItem.screenToNavigate); }} key={i}>
+                      <View
                         style={{
-                          fontSize: 15,
-                          color: '#000000',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          paddingTop: 10,
+                          paddingBottom: 10,
+                          backgroundColor: '#ffffff',
+                          width: '100%'
                         }}
-                        onPress={() => { navigation.navigate(subItem.screenToNavigate); }}>
-                        {subItem.navOptionName}
-                      </Text>
-                    </View>
+                      >
+
+                        <View style={{ marginRight: 10, marginLeft: 20 }}>
+                          <Icon name={subItem.navOptionThumb} size={25} style={{ color: '#2f95dc' }} />
+                        </View>
+                        <Text
+                          style={{
+                            fontSize: 15,
+                            color: '#000000',
+                          }}>
+                          {subItem.navOptionName}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   ))
                 }
               </View>

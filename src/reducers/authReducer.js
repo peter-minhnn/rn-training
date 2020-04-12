@@ -1,13 +1,13 @@
-import { LOADING_REQUEST, API_FAILED, API_RESPONSE } from '../constants';
+import { LOADING_REQUEST, API_RESPONSE, API_FAILED, } from '../constants';
 import _ from 'lodash';
 
 const initialState = {
     loading: false,
-    payload: [],
+    payload: {},
     error: ''
 }
 
-function homeReducer(state = initialState, action) {
+function authReducers(state = initialState, action) {
     let newState = _.cloneDeep(state);
     switch (action.type) {
         case LOADING_REQUEST:
@@ -15,10 +15,10 @@ function homeReducer(state = initialState, action) {
         case API_RESPONSE:
             return { ...newState, loading: false, payload: action.payload };
         case API_FAILED:
-            return {...newState, loading: false, error: action.error}
+            return { ...newState, loading: false, error: action.error }
         default:
-            return {...newState};
+            return { ...newState };
     }
 }
 
-export default homeReducer;
+export default authReducers;
