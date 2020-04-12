@@ -31,11 +31,9 @@ export default function SignInScreen(props) {
     }, [disable, email, password])
 
     useEffect(() => {
-        console.log(props.payload)
-        if (Object.keys(props.payload).length > 0 && props.payload.error !== '') {
+        if (props.payload != undefined && props.payload.error !== '') {
             handleShowAlert(props.error);
         }
-
         return () => setPayload([])
     }, [props.payload])
 

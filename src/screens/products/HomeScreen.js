@@ -40,7 +40,6 @@ export default function HomeScreen(props) {
     }, [props.loading])
 
     useEffect(() => {
-        console.log(subcategories)
         if (Object.keys(props.payload).length > 0 && props.payload != undefined) {
             setCategory(props.payload.subcategories)
         }
