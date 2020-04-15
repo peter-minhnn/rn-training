@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { Image, Text, SafeAreaView, View, Alert, ScrollView, Dimensions } from 'react-native';
-import ReactNativeIcon from '../../assets/img/react-native-icon.svg';
+import { Image, Text, SafeAreaView, View, Alert, ScrollView, Dimensions, FlatList, TouchableOpacity } from 'react-native';
 import { homeStyles } from '../../styles';
 import { Container, Button, Input, Content, Thumbnail } from 'native-base';
 import { useDispatch } from 'react-redux';
@@ -13,11 +12,42 @@ import * as types from '../../constants/ActionsType';
 import { NetworkAndAppStateContext } from '../../components/NetworkProvider';
 import Icon from 'react-native-vector-icons/AntDesign';
 
+const dashboard = [
+    {
+        key: 2,
+        source: 'ic_qrcode',
+        name: 'test 1'
+    },
+    {
+        key: 3,
+        source: 'ic_history_menu_home',
+        name: 'test 1'
+    },
+    {
+        key: 4,
+        source: 'ic_public_menu_home',
+        name: 'test 1'
+    }
+];
+
+const formatData = (data, numColumns) => {
+    const numberOfFullRows = Math.floor(data.length / numColumns);
+    let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
+    while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
+        data.push({ key: `${numberOfElementsLastRow}`, empty: true });
+        numberOfElementsLastRow++;
+    }
+    return data;
+};
+
+const numColumns = 2;
+
 function HomeScreen(props) {
     const { navigation } = props;
-    const [subcategories, setCategory] = useState([]);
     const dispatch = useDispatch();
     const context = NetworkAndAppStateContext;
+    const [subcategories, setCategory] = useState([]);
+    const [itemsList, setItemList] = useState(dashboard);
 
     useEffect(() => {
         dispatch(props.getMenuStore())
@@ -38,6 +68,23 @@ function HomeScreen(props) {
             { cancelable: false }
         )
     }
+
+    function renderItem({ item }) {
+        if (item.empty) {
+            return <View style={[homeStyles.item, homeStyles.itemInvisible]}></View>
+        }
+        return (
+            <TouchableOpacity key={item.index} style={homeStyles.item} onPress={() => { onPressItem(item.index) }}>
+                <Image source={{ uri: `${item.source}` }} style={homeStyles.imageMenu} />
+                <Text style={homeStyles.itemText}>{item.name}</Text>
+            </TouchableOpacity>
+        )
+    }
+
+    function onPressItem() {
+
+    }
+
     if (!context._currentValue.isConnected) {
         return (
             <SafeAreaView style={{ flex: 1 }}>
@@ -64,21 +111,23 @@ function HomeScreen(props) {
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <HeaderComponent {...props} />
-                <RefreshComponent onRefreshActions={props.getMenuStore}>
-                    <View style={homeStyles.searchBarContainer}>
-                        <View style={homeStyles.searchBarChild}>
-                            <Icon active name='search1' style={homeStyles.searchBarIcon} size={22} />
-                            <Input placeholder='Search for products...' />
-                        </View>
+                {/* <RefreshComponent onRefreshActions={props.getMenuStore}> */}
+                <View style={homeStyles.searchBarContainer}>
+                    <View style={homeStyles.searchBarChild}>
+                        <Icon active name='search1' style={homeStyles.searchBarIcon} size={22} />
+                        <Input placeholder='Search for products...' />
                     </View>
+                </View>
+                <View style={{ height: 100 }}>
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                         scrollEventThrottle={200}
                         decelerationRate="fast"
                         contentContainerStyle={{
-                            padding: 10, backgroundColor: '#FFF',
-                            height: 100, marginTop: 2
+                            padding: 10,
+                            backgroundColor: '#FFF',
+                            marginTop: 2
                         }}
                     >
                         {
@@ -104,27 +153,72 @@ function HomeScreen(props) {
                                 )
                         }
                     </ScrollView>
-                    <View style={homeStyles.contentContainer}>
-                        <View style={homeStyles.welcomeContainer}>
-                            <Image
-                                source={
-                                    __DEV__
-                                        ? require('../../assets/img/robot-dev.png')
-                                        : require('../../assets/img/robot-prod.png')
-                                }
-                                style={homeStyles.welcomeImage}
-                            />
-                            <ReactNativeIcon width={100} height={50} />
+                </View>
+                <View style={{ flex: 1, paddingBottom: 2 }}>
+                    <ScrollView
+                        contentContainerStyle={homeStyles.contentContainer}
+                        showsVerticalScrollIndicator={false}
+                        style={{ flex: 1 }}
+                    >
+                        <View>
+                            <View style={homeStyles.headerCategory}>
+                                <Text style={{ fontSize: 25, color: '#2f95dc', fontWeight: 'bold' }}>Electronics</Text>
+                                <Button block info onPress={handleFetchUser} style={{ height: 30, marginTop: 2, width: '30%' }}>
+                                    <Text style={{ color: '#FFFFFF' }}>View All</Text>
+                                </Button>
+
+                            </View>
+                            <View style={{ flexDirection: 'row', paddingLeft: 5, paddingRight: 5 }}>
+                                <TouchableOpacity style={homeStyles.item} onPress={() => { onPressItem() }}>
+                                    <Image source={require('../../assets/img/robot-dev.png')} style={homeStyles.imageMenu} />
+                                    <Text style={homeStyles.itemText}>Image 1</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={homeStyles.item} onPress={() => { onPressItem() }}>
+                                    <Image source={require('../../assets/img/menu_cloth.jpg')} style={homeStyles.imageMenu} />
+                                    <Text style={homeStyles.itemText}>Image 1</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         <View>
-                            <Text>Using Redux-saga with hooks **EXPERIMENTAL**</Text>
-                            <Button block info onPress={handleFetchUser}>
-                                <Text style={{ color: '#FFFFFF' }}>Fetch User</Text>
-                            </Button>
+                            <View style={homeStyles.headerCategory}>
+                                <Text style={{ fontSize: 25, color: '#2f95dc', fontWeight: 'bold' }}>Electronics</Text>
+                                <Button block info onPress={handleFetchUser} style={{ height: 30, marginTop: 2, width: '30%' }}>
+                                    <Text style={{ color: '#FFFFFF' }}>View All</Text>
+                                </Button>
+                            </View>
+                            <View style={{ flexDirection: 'row', paddingLeft: 5, paddingRight: 5 }}>
+                                <TouchableOpacity style={homeStyles.item} onPress={() => { onPressItem() }}>
+                                    <Image source={require('../../assets/img/menu_cloth.jpg')} style={homeStyles.imageMenu} />
+                                    <Text style={homeStyles.itemText}>Image 1</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={homeStyles.item} onPress={() => { onPressItem() }}>
+                                    <Image source={require('../../assets/img/menu_cloth.jpg')} style={homeStyles.imageMenu} />
+                                    <Text style={homeStyles.itemText}>Image 1</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        {/* <SpinnerOverLay loading={props.loading} /> */}
-                    </View>
-                </RefreshComponent>
+                        <View>
+                            <View style={homeStyles.headerCategory}>
+                                <Text style={{ fontSize: 25, color: '#2f95dc', fontWeight: 'bold' }}>Electronics</Text>
+                                <Button block info onPress={handleFetchUser} style={{ height: 30, marginTop: 2, width: '30%' }}>
+                                    <Text style={{ color: '#FFFFFF' }}>View All</Text>
+                                </Button>
+                            </View>
+                            <View style={{ flexDirection: 'row', paddingLeft: 5, paddingRight: 5 }}>
+                                <TouchableOpacity style={homeStyles.item} onPress={() => { onPressItem() }}>
+                                    <Image source={require('../../assets/img/menu_cloth.jpg')} style={homeStyles.imageMenu} />
+                                    <Text style={homeStyles.itemText}>Image 1</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={homeStyles.item} onPress={() => { onPressItem() }}>
+                                    <Image source={require('../../assets/img/menu_cloth.jpg')} style={homeStyles.imageMenu} />
+                                    <Text style={homeStyles.itemText}>Image 1</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ScrollView>
+                </View>
+
+                {/* </RefreshComponent> */}
             </SafeAreaView>
         );
     }

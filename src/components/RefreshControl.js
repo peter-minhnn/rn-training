@@ -2,13 +2,8 @@ import React, { useEffect } from 'react';
 import {
     ScrollView,
     RefreshControl,
-    StyleSheet,
-    Text,
-    SafeAreaView,
-    StatusBar
+    StyleSheet
 } from 'react-native';
-//import Constants from 'expo-constants';
-import { useDispatch } from 'react-redux';
 
 function wait(timeout) {
     return new Promise(resolve => {
@@ -26,16 +21,14 @@ export default function RefreshComponent({ children, onRefreshActions }) {
     }, [refreshing]);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView
-                //contentContainerStyle={styles.scrollView}
-                refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }
-            >
-                {children}
-            </ScrollView>
-        </SafeAreaView>
+        <ScrollView
+            //contentContainerStyle={styles.scrollView}
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+        >
+            {children}
+        </ScrollView>
     );
 }
 
@@ -47,7 +40,5 @@ const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
         backgroundColor: 'pink',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
 });

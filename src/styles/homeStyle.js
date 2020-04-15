@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export const homeStyles = StyleSheet.create({
     container: {
@@ -7,14 +7,20 @@ export const homeStyles = StyleSheet.create({
         alignItems: 'center',
     },
     contentContainer: {
-        paddingTop: 30,
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    welcomeContainer: {
-        alignItems: 'center',
         marginTop: 10,
-        marginBottom: 20,
+        backgroundColor: '#FFF',
+    },
+    subCategories: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: 85,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    headerCategory: {
+        flexDirection: 'row',
+        padding: 10,
+        justifyContent: 'space-between'
     },
     welcomeImage: {
         width: 100,
@@ -28,21 +34,48 @@ export const homeStyles = StyleSheet.create({
         fontSize: 14
     },
     searchBarContainer: {
-        backgroundColor: '#2f95dc', 
-        display: 'flex', 
-        alignItems: 'center', 
+        backgroundColor: '#2f95dc',
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'center'
     },
     searchBarChild: {
-        width: '95%', 
-        margin: 10, 
-        backgroundColor: '#FFFFFF', 
-        borderRadius: 5, 
-        flexDirection: 'row' 
+        width: '95%',
+        margin: 10,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 5,
+        flexDirection: 'row'
     },
     searchBarIcon: {
-        width: '16%', 
-        paddingTop: 14, 
+        width: '16%',
+        paddingTop: 14,
         paddingLeft: 30
+    },
+    divItem: {
+        height: Dimensions.get('window').width / (1), // approximate a square
+        flex: 1,
+        elevation: 1
+    },
+    item: {
+        backgroundColor: '#CCC',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        margin: 3,
+        height: Dimensions.get('window').width / (2), // approximate a square
+        borderRadius: 15,
+        width: '49%'
+    },
+    itemInvisible: {
+        backgroundColor: 'transparent',
+    },
+    itemText: {
+        color: '#29A8DF',
+        fontSize: 14,
+        paddingTop: 3
+    },
+    imageMenu: {
+        width: 100,
+        height: 100
     }
 });
