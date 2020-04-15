@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { Image, Text, SafeAreaView, View, Alert, ScrollView } from 'react-native';
+import { Image, Text, SafeAreaView, View, Alert, ScrollView, Dimensions } from 'react-native';
 import ReactNativeIcon from '../../assets/img/react-native-icon.svg';
 import { homeStyles } from '../../styles';
 import { Container, Button, Input, Content, Thumbnail } from 'native-base';
 import { useDispatch } from 'react-redux';
 import HeaderComponent from '../../components/HeaderComponent';
-import { DotIndicator } from 'react-native-indicators';
+import { BallIndicator } from 'react-native-indicators';
 import RefreshComponent from '../../components/RefreshControl';
 import { selectSubcategories } from '../../selectors/homeSelector';
 import * as types from '../../constants/ActionsType';
@@ -44,7 +44,7 @@ function HomeScreen(props) {
                 <HeaderComponent {...props} />
                 <View style={homeStyles.searchBarContainer}>
                     <View style={homeStyles.searchBarChild}>
-                        <Icon active name='search1' style={homeStyles.searchBarIcon} size={22}/>
+                        <Icon active name='search1' style={homeStyles.searchBarIcon} size={22} />
                         <Input placeholder='Search for products...' />
                     </View>
                 </View>
@@ -67,7 +67,7 @@ function HomeScreen(props) {
                 <RefreshComponent onRefreshActions={props.getMenuStore}>
                     <View style={homeStyles.searchBarContainer}>
                         <View style={homeStyles.searchBarChild}>
-                            <Icon active name='search1' style={homeStyles.searchBarIcon} size={22}/>
+                            <Icon active name='search1' style={homeStyles.searchBarIcon} size={22} />
                             <Input placeholder='Search for products...' />
                         </View>
                     </View>
@@ -76,13 +76,26 @@ function HomeScreen(props) {
                         showsHorizontalScrollIndicator={false}
                         scrollEventThrottle={200}
                         decelerationRate="fast"
-                        contentContainerStyle={{ padding: 10 }}
+                        contentContainerStyle={{
+                            padding: 10, backgroundColor: '#FFF',
+                            height: 100, marginTop: 2
+                        }}
                     >
                         {
                             props.loading ?
-                                <DotIndicator size={40} color='#2f95dc' /> :
+                                <View style={{ width: Dimensions.get('window').width }}>
+                                    <BallIndicator size={40} color='#2f95dc' style={{ marginRight: 30 }} />
+                                </View>
+                                :
                                 subcategories.map((object, index) =>
-                                    <View key={index} style={{ display: 'flex', flexDirection: 'column', width: 85, justifyContent: 'center', alignItems: 'center' }}>
+                                    <View key={index} style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        width: 85,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+
+                                    }}>
                                         <View style={{ borderWidth: 1, borderRadius: 50 }} >
                                             <Thumbnail source={{ uri: `http:${object.thumb}` }} width={10} height={10} />
                                         </View>
