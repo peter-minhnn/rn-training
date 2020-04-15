@@ -13,7 +13,7 @@ function homeReducer(state = initialState, action) {
         case LOADING_REQUEST:
             return { ...newState, loading: true };
         case GET_MENU_RESPONSE:
-            return { ...newState, loading: false, payload: action.payload };
+            return { ...newState, loading: false, payloadCategories: action.payloadCategories };
         case GET_MENU_FAILED:
             return {...newState, loading: false, error: action.error}
         default:

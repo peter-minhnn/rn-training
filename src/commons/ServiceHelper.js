@@ -6,7 +6,7 @@ export const callApi = async (_type = 'GET', _url = '', _data = null) => {
     if (_type === 'GET') {
         return await fetch(fullUrl)
             .then(response => {
-                if (response.status === 200) {
+                if (response.ok) {
                     return response.json();
                 }
                 else {
@@ -15,14 +15,14 @@ export const callApi = async (_type = 'GET', _url = '', _data = null) => {
             }).then(json => {
                 return json;
             })
-            .catch(error => { Reactotron.log(error.message) });
+            .catch(error => { return { error: error.message } });
     }
     else {
         return await fetch(fullUrl, {
             method: _type,
             body: _data
         }).then(response => {
-            if (response.status === 200) {
+            if (response.ok) {
                 return response.json();
             }
             else {
@@ -31,6 +31,6 @@ export const callApi = async (_type = 'GET', _url = '', _data = null) => {
         }).then(json => {
             return json;
         })
-            .catch(error => { Reactotron.log(error.message) });
+            .catch(error => { return { error: error.message } });
     }
 };

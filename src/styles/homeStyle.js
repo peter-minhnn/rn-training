@@ -8,6 +8,8 @@ export const homeStyles = StyleSheet.create({
     },
     contentContainer: {
         paddingTop: 30,
+        paddingLeft: 20,
+        paddingRight: 20
     },
     welcomeContainer: {
         alignItems: 'center',
@@ -40,7 +42,7 @@ export const homeStyles = StyleSheet.create({
     },
     searchBarIcon: {
         width: '16%', 
-        paddingTop: 10, 
+        paddingTop: 14, 
         paddingLeft: 30
     }
 });

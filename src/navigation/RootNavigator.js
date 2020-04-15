@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import HomeScreen from '../screens/products/HomeScreen';
-import SignInComp from '../components/screen/SignInComponent';
+import SignInScreen from '../screens/auth/SignInScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import SettingScreen from '../screens/others/SettingScreen';
 //import { MyTabBar } from '../components/TabBar'; used later
@@ -16,7 +16,7 @@ import ProfileScreen from '../screens/user/ProfileScreen';
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator headerMode='none' initialRouteName='SignIn'>
-    <AuthStack.Screen name='SignIn' component={SignInComp} />
+    <AuthStack.Screen name='SignIn' component={SignInScreen} />
     <AuthStack.Screen name='SignUp' component={SignUpScreen} />
   </AuthStack.Navigator>
 );

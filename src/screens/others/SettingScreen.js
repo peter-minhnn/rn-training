@@ -4,9 +4,12 @@ import { Container, Header, Content, Button, ListItem, Text, Icon, Left, Body, R
 import HeaderComponent from '../../components/HeaderComponent';
 
 export default function SettingScreen(props) {
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
     return (
         <Container>
-            <HeaderComponent {...props}/>
+            <HeaderComponent {...props} />
             <Content>
                 <ListItem icon>
                     <Left>
@@ -18,7 +21,11 @@ export default function SettingScreen(props) {
                         <Text>Airplane Mode</Text>
                     </Body>
                     <Right>
-                        <Switch value={false} />
+                        <Switch trackColor={{ false: "#767577", true: "#81b0ff" }}
+                            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleSwitch}
+                            value={isEnabled} />
                     </Right>
                 </ListItem>
                 <ListItem icon>

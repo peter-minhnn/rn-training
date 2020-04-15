@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, createContext } from 'react';
-import { Platform, StatusBar, YellowBox } from 'react-native';
+import { Platform, StatusBar, YellowBox, Image, View, Dimensions } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import RootNavigator from './src/navigation/RootNavigator';
@@ -8,6 +8,7 @@ import ConfigureStore from './src/store/ConfigureStore';
 import { Provider } from 'react-redux';
 import 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
+import NetworkProvider from './src/components/NetworkProvider';
 
 //Ignore warning
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader', 'Method `jumpToIndex` is deprecated']);
@@ -20,6 +21,7 @@ export default function App(props) {
   const containerRef = useRef();
   const { getInitialState } = useLinking(containerRef);
   const [token, setUserToken] = useState(null);
+
   // Load any resources or data that we need prior to rendering the app
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
@@ -44,14 +46,20 @@ export default function App(props) {
   }, []);
 
   if (!isLoadingComplete) {
-    return null;
+    return (
+      <View style={{ backgroundColor: '#024571', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Image source={require('./src/assets/img/giphy.gif')} />
+      </View>
+    );
   } else {
     return (
       <Provider store={store}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <RootNavigator token={token}/>
-        </NavigationContainer>
+        <NetworkProvider>
+          {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+          <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
+            <RootNavigator token={token} />
+          </NavigationContainer>
+        </NetworkProvider>
       </Provider>
     );
   }

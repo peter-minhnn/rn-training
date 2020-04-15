@@ -1,28 +1,32 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { Image, Platform, Text, TouchableOpacity, View, Alert, ScrollView } from 'react-native';
+import { Image, Text, SafeAreaView, View, Alert, ScrollView } from 'react-native';
 import ReactNativeIcon from '../../assets/img/react-native-icon.svg';
 import { homeStyles } from '../../styles';
-import { Container, Button, Icon, Title, Input, Content, Thumbnail } from 'native-base';
+import { Container, Button, Input, Content, Thumbnail } from 'native-base';
 import { useDispatch } from 'react-redux';
 import HeaderComponent from '../../components/HeaderComponent';
-import SpinnerOverLay from '../../components/SpinnerComponent';
+import { DotIndicator } from 'react-native-indicators';
+import RefreshComponent from '../../components/RefreshControl';
+import { selectSubcategories } from '../../selectors/homeSelector';
+import * as types from '../../constants/ActionsType';
+import { NetworkAndAppStateContext } from '../../components/NetworkProvider';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 function HomeScreen(props) {
     const { navigation } = props;
     const [subcategories, setCategory] = useState([]);
     const dispatch = useDispatch();
+    const context = NetworkAndAppStateContext;
 
     useEffect(() => {
         dispatch(props.getMenuStore())
     }, [])
 
     useEffect(() => {
-        if (Object.keys(props.payload).length > 0 && props.payload != undefined) {
-            setCategory(props.payload.subcategories)
-        }
-        return () => setCategory([])
-    }, [props.payload])
+        setCategory(props.payloadCategories);
+        return () => setCategory([]);
+    }, [props.payloadCategories])
 
     function handleFetchUser() {
         Alert.alert(
@@ -34,15 +38,36 @@ function HomeScreen(props) {
             { cancelable: false }
         )
     }
-
-    return (
-        <Container>
-            <HeaderComponent {...props} />
-            <Content>
-                <ScrollView contentContainerStyle={homeStyles.container}>
+    if (!context._currentValue.isConnected) {
+        return (
+            <SafeAreaView style={{ flex: 1 }}>
+                <HeaderComponent {...props} />
+                <View style={homeStyles.searchBarContainer}>
+                    <View style={homeStyles.searchBarChild}>
+                        <Icon active name='search1' style={homeStyles.searchBarIcon} size={22}/>
+                        <Input placeholder='Search for products...' />
+                    </View>
+                </View>
+                <Container>
+                    <Content contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Network request error!</Text>
+                        <Button iconLeft block warning style={{ padding: 30, alignSelf: 'center', marginTop: 10 }}>
+                            <Icon name='sync' color='#FFF' />
+                            <Text style={{ color: '#FFF' }}> Try again</Text>
+                        </Button>
+                    </Content>
+                </Container>
+            </SafeAreaView>
+        )
+    }
+    else {
+        return (
+            <SafeAreaView style={{ flex: 1 }}>
+                <HeaderComponent {...props} />
+                <RefreshComponent onRefreshActions={props.getMenuStore}>
                     <View style={homeStyles.searchBarContainer}>
                         <View style={homeStyles.searchBarChild}>
-                            <Icon active name='ios-search' style={homeStyles.searchBarIcon} />
+                            <Icon active name='search1' style={homeStyles.searchBarIcon} size={22}/>
                             <Input placeholder='Search for products...' />
                         </View>
                     </View>
@@ -54,7 +79,8 @@ function HomeScreen(props) {
                         contentContainerStyle={{ padding: 10 }}
                     >
                         {
-                            subcategories.length > 0 ?
+                            props.loading ?
+                                <DotIndicator size={40} color='#2f95dc' /> :
                                 subcategories.map((object, index) =>
                                     <View key={index} style={{ display: 'flex', flexDirection: 'column', width: 85, justifyContent: 'center', alignItems: 'center' }}>
                                         <View style={{ borderWidth: 1, borderRadius: 50 }} >
@@ -62,7 +88,7 @@ function HomeScreen(props) {
                                         </View>
                                         <Text style={{ fontSize: 12 }} numberOfLines={1}>{object.name}</Text>
                                     </View>
-                                ) : null
+                                )
                         }
                     </ScrollView>
                     <View style={homeStyles.contentContainer}>
@@ -83,26 +109,28 @@ function HomeScreen(props) {
                                 <Text style={{ color: '#FFFFFF' }}>Fetch User</Text>
                             </Button>
                         </View>
-                       <SpinnerOverLay loading={props.loading}/>
+                        {/* <SpinnerOverLay loading={props.loading} /> */}
                     </View>
-                </ScrollView>
-            </Content>
-        </Container>
-    );
+                </RefreshComponent>
+            </SafeAreaView>
+        );
+    }
 }
 
 
 const mapDispatchToProps = dispatch => {
     return {
-        getMenuStore: () => dispatch({ type: 'GET_MENU_REQUEST' })
+        getMenuStore: () => dispatch({ type: types.GET_MENU_REQUEST })
     }
 }
 
-const mapStateToProps = (state) => ({
-    loading: state.homeReducer.loading,
-    payload: state.homeReducer.payload,
-    error: state.homeReducer.error,
-});
+const mapStateToProps = (state) => {
+    return {
+        loading: state.homeReducer.loading,
+        payloadCategories: selectSubcategories(state.homeReducer.payloadCategories),
+        error: state.homeReducer.error,
+    }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 

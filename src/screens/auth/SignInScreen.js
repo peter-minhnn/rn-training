@@ -9,10 +9,13 @@ import {
 } from 'native-base';
 import Icon from 'react-native-vector-icons/Feather';
 import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { DotIndicator } from 'react-native-indicators';
 import SignInBackGround from '../../assets/img/login_background.svg';
+import * as types from '../../constants/ActionsType';
+import { CommonActions } from '@react-navigation/native';
 
-export default function SignInScreen(props) {
+function SignInScreen(props) {
     const dispatch = useDispatch();
     const [payload, setPayload] = useState([]);
     const [email, setEmail] = useState('');
@@ -31,9 +34,21 @@ export default function SignInScreen(props) {
     }, [disable, email, password])
 
     useEffect(() => {
+
+        if (Object.keys(props.payload).length > 0 && props.payload.status === 1) {
+            navigation.dispatch(
+                CommonActions.navigate({
+                    name: 'Home'
+                })
+            );
+            // return (
+            //     <HomeScreen />
+            // )
+        }
         if (props.payload != undefined && props.payload.error !== '') {
             handleShowAlert(props.error);
         }
+
         return () => setPayload([])
     }, [props.payload])
 
@@ -41,7 +56,7 @@ export default function SignInScreen(props) {
         let formDataUser = new FormData();
         formDataUser.append('loginname', email);
         formDataUser.append('password', password);
-        dispatch(props.actions.SignInRequest(formDataUser))
+        dispatch(props.signIn(formDataUser))
     }
 
     function handleShowAlert(_msg) {
@@ -117,3 +132,17 @@ export default function SignInScreen(props) {
         </SafeAreaView >
     )
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signIn: formDataUser => dispatch({ type: types.SIGN_IN_REQUEST, data: formDataUser })
+    }
+}
+
+const mapStateToProps = (state) => ({
+    loading: state.authReducers.loading,
+    payload: state.authReducers.payload,
+    error: state.authReducers.error
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);
