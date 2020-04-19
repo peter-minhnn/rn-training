@@ -19,7 +19,7 @@ export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [initialNavigationState, setInitialNavigationState] = useState();
   const containerRef = useRef();
-  const { getInitialState } = useLinking(containerRef);
+  const { getInitialState } = containerRef;
   const [token, setUserToken] = useState(null);
 
   // Load any resources or data that we need prior to rendering the app
@@ -28,7 +28,7 @@ export default function App(props) {
       try {
         SplashScreen.hide();
         // Load our initial navigation state
-        setInitialNavigationState(await getInitialState());
+        //setInitialNavigationState(await getInitialState());
 
         const userToken = await AsyncStorage.getItem('signInToken');
         setUserToken(userToken);
@@ -56,7 +56,7 @@ export default function App(props) {
       <Provider store={store}>
         <NetworkProvider>
           {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-          <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
+          <NavigationContainer>
             <RootNavigator token={token} />
           </NavigationContainer>
         </NetworkProvider>

@@ -10,10 +10,7 @@ export default function NetworkProvider(props) {
 
     useEffect(() => {
         AppState.addEventListener("change", _handleAppStateChange);
-
-        return () => {
-            AppState.removeEventListener("change", _handleAppStateChange);
-        };
+        return () => AppState.removeEventListener("change", _handleAppStateChange);
     }, []);
 
 
@@ -41,6 +38,7 @@ export default function NetworkProvider(props) {
     }
 
     const params = { isConnected, appState };
+    console.log('params ', [isConnected, appState])
     return (
         <NetworkAndAppStateContext.Provider value={params}>
             {props.children}

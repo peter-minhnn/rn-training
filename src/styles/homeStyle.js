@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 export const homeStyles = StyleSheet.create({
     container: {
@@ -7,7 +7,6 @@ export const homeStyles = StyleSheet.create({
         alignItems: 'center',
     },
     contentContainer: {
-        marginTop: 10,
         backgroundColor: '#FFF',
     },
     subCategories: {
@@ -37,10 +36,32 @@ export const homeStyles = StyleSheet.create({
         backgroundColor: '#2f95dc',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        shadowOffset: {
+            width: 0,
+            height: 0
+        },
+    },
+    searchBarStickyHeader: {
+        backgroundColor: '#2f95dc',
+        flexDirection: 'row',        
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        elevation: Platform.OS === 'android' ? 5 : 1,
+        shadowOffset: {
+            width: 0,
+            height: 0
+        },
     },
     searchBarChild: {
         width: '95%',
+        margin: 10,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 5,
+        flexDirection: 'row'
+    },
+    searchBarStickyChild: {
+        width: '80%',
         margin: 10,
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
@@ -51,31 +72,56 @@ export const homeStyles = StyleSheet.create({
         paddingTop: 14,
         paddingLeft: 30
     },
+    searchBarStickyIcon:{
+        width: '16%',
+        paddingTop: 14,
+        paddingLeft: 20
+    },
+    searchBarCartIcon:{
+        paddingRight: 20
+    },
     divItem: {
         height: Dimensions.get('window').width / (1), // approximate a square
         flex: 1,
         elevation: 1
     },
     item: {
-        backgroundColor: '#CCC',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#FFF',
+        flexDirection: 'column',
         flex: 1,
         margin: 3,
         height: Dimensions.get('window').width / (2), // approximate a square
-        borderRadius: 15,
-        width: '49%'
+        borderRadius: 8,
+        width: '49%',
+        elevation: Platform.OS === 'android' ? 4 : 1,
+        shadowOffset: {
+            width: 3,
+            height: 3
+        },
+        shadowOpacity: 1
     },
     itemInvisible: {
         backgroundColor: 'transparent',
     },
-    itemText: {
-        color: '#29A8DF',
+    saleOff: {
+        paddingLeft: 5,
+        color: '#2f95dc',
+        fontSize: 14
+    },
+    priceNew: {
+        color: '#000',
         fontSize: 14,
-        paddingTop: 3
+        fontWeight: 'bold'
+    },
+    priceOld: {
+        paddingLeft: 5,
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+        color: '#000',
+        fontSize: 14
     },
     imageMenu: {
-        width: 100,
-        height: 100
+        width: 120,
+        height: 120
     }
 });

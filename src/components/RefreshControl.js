@@ -35,7 +35,6 @@ export default function RefreshComponent({ children, onRefreshActions }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //marginTop: StatusBar.currentHeight,
     },
     scrollView: {
         flex: 1,
