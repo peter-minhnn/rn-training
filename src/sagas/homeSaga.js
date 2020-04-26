@@ -3,7 +3,6 @@ import { callApi } from '../commons';
 import { GET_MENU_REQUEST, GET_MENU_RESPONSE, GET_MENU_FAILED } from '../constants';
 import { LoadingRequest, ApiResponse, ApiFailed } from '../actions';
 import Reactotron from 'reactotron-react-native';
-import HomeScreen from '../screens/products/HomeScreen';
 
 const getDataCategory = async () => {
   const response = await callApi('GET', '?api_key=&rt=a/product/category&category_id');

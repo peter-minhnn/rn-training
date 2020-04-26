@@ -1,14 +1,13 @@
-import React, { useRef, useState, useEffect, createContext } from 'react';
-import { Platform, StatusBar, YellowBox, Image, View, Dimensions } from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
-import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
-import RootNavigator from './src/navigation/RootNavigator';
-import useLinking from './src/navigation/useLinking';
-import ConfigureStore from './src/store/ConfigureStore';
-import { Provider } from 'react-redux';
+import React, { useRef, useState, useEffect } from 'react'
+import { Platform, StatusBar, YellowBox, Image, View } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
+import { NavigationContainer } from '@react-navigation/native'
+import RootNavigator from './src/navigation/RootNavigator'
+import ConfigureStore from './src/store/ConfigureStore'
+import { Provider } from 'react-redux'
 import 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-community/async-storage';
-import NetworkProvider from './src/components/NetworkProvider';
+import AsyncStorage from '@react-native-community/async-storage'
+import NetworkProvider from './src/components/NetworkProvider'
 
 //Ignore warning
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader', 'Method `jumpToIndex` is deprecated']);
@@ -55,7 +54,7 @@ export default function App(props) {
     return (
       <Provider store={store}>
         <NetworkProvider>
-          {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+          {Platform.OS == 'ios' ? <StatusBar barStyle="dark-content" backgroundColor='#2f95dc' translucent={false}/> : <StatusBar barStyle="light-content" backgroundColor='#2f95dc' translucent={false} networkActivityIndicatorVisible={true}/>}
           <NavigationContainer>
             <RootNavigator token={token} />
           </NavigationContainer>

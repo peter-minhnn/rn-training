@@ -8,14 +8,14 @@ import {
     Button,
     Title,
 } from 'native-base';
-import { View } from 'react-native';
-
+import { View, TouchableNativeFeedback } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const _navHeaderItems = ['Home', 'MyCart', 'Profile', 'MyOrders', 'Map', 'Setting'];
 
 export default function HeaderComponent(props) {
     const [headerTitle, setTitle] = useState('');
     const [isMultipleIcon, setIsMultipleIcon] = useState(false);
-
+    const opacity = 0.8;
     // Get a name of current screen
     const routeName = props.route != undefined ? props.route.name : 'Home';
 
@@ -48,6 +48,7 @@ export default function HeaderComponent(props) {
     }
 
     function handleNavigateMyCart() {
+        console.log('handleNavigateMyCart')
         props.navigation.navigate('MyCart');
     }
 
@@ -58,9 +59,9 @@ export default function HeaderComponent(props) {
     return (
         <Header style={{ backgroundColor: '#2f95dc' }}>
             <Left style={{ flex: 1, padding: 0 }}>
-                <Button transparent onPress={handleToggleDrawer}>
-                    <Icon name={headerTitle === 'Home' ? 'bars' : 'arrowleft'} size={20} color='#FFFFFF' />
-                </Button>
+                <TouchableOpacity activeOpacity={opacity} onPress={handleToggleDrawer} style={{ width: 50 }}>
+                    <Icon name={headerTitle === 'Home' ? 'bars' : 'left'} size={20} color='#FFFFFF' />
+                </TouchableOpacity>
             </Left>
             <Body style={{ flex: 0 }}>
                 <Title>{headerTitle}</Title>
@@ -68,17 +69,17 @@ export default function HeaderComponent(props) {
             <Right style={{ flex: 1, padding: -10 }}>
                 {isMultipleIcon && headerTitle !== 'Home' ?
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                        <Button transparent onPress={handleNavigateSearch}>
+                        <TouchableOpacity activeOpacity={opacity} onPress={handleNavigateSearch} style={{ width: 50 }}>
                             <Icon name='search1' size={20} color='#FFFFFF' />
-                        </Button>
-                        <Button transparent onPress={handleNavigateMyCart}>
+                        </TouchableOpacity>
+                        <TouchableOpacity activeOpacity={opacity} onPress={handleNavigateMyCart} style={{ width: 50 }}>
                             <Icon name='shoppingcart' size={20} color='#FFFFFF' />
-                        </Button>
+                        </TouchableOpacity>
                     </View>
                     :
-                    <Button transparent onPress={handleNavigateMyCart}>
+                    <TouchableOpacity activeOpacity={opacity} onPress={handleNavigateMyCart}>
                         <Icon name='shoppingcart' size={20} color='#FFFFFF' />
-                    </Button>
+                    </TouchableOpacity>
                 }
             </Right>
         </Header>

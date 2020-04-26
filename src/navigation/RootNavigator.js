@@ -84,7 +84,7 @@ const ProfileStackScreen = () => (
 //Drawer Navigation
 const Drawer = createDrawerNavigator();
 const DrawerScreen = () => (
-  <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+  <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />} initialRouteName='Home'>
     <Drawer.Screen name='Home' component={HomeStackScreen} />
     <Drawer.Screen name="MyCart" component={MyCartStackScreen} />
     <Drawer.Screen name="Profile" component={ProfileStackScreen} />
@@ -103,7 +103,7 @@ export default function RootStackScreen(props) {
         ) : (
             <>
               <RootStack.Screen name="App" component={DrawerScreen} />
-              <Drawer.Screen name="MyCart" component={MyCartStackScreen} />
+              {/* <RootStack.Screen name="MyCart" component={MyCartStackScreen} /> */}
             </>
           )
       }

@@ -18,6 +18,7 @@ export default function NetworkProvider(props) {
         // Subscribe
         const unsubscribe = NetInfo.addEventListener(state => {
             console.log("Connection type", state.type);
+            console.log("IP Address", state.details.ipAddress);
             console.log("Is connected?", state.isConnected);
             _handleConnectivityChange(state.isConnected);
         });
@@ -38,7 +39,7 @@ export default function NetworkProvider(props) {
     }
 
     const params = { isConnected, appState };
-    console.log('params ', [isConnected, appState])
+    //console.log('params ', [isConnected, appState])
     return (
         <NetworkAndAppStateContext.Provider value={params}>
             {props.children}
