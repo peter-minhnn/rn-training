@@ -3,15 +3,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import HomeScreen from '../screens/products/HomeScreen';
-import SignInScreen from '../screens/auth/SignInScreen';
-import SignUpScreen from '../screens/auth/SignUpScreen';
-import SettingScreen from '../screens/others/SettingScreen';
+import HomeScreen from '../views/screens/products/components/HomeScreen';
+import SignInScreen from '../views/screens/auth/component/SignInScreen';
+import SignUpScreen from '../views/screens/auth/component/SignUpScreen';
+import SettingScreen from '../views/screens/others/SettingScreen';
 //import { MyTabBar } from '../components/TabBar'; used later
-import CustomDrawerContent from '../components/CustomDrawerContent';
-import ProductDetailScreen from '../screens/products/ProductDetailScreen';
-import MyCartScreen from '../screens/products/MyCartScreen';
-import ProfileScreen from '../screens/user/ProfileScreen';
+import CustomDrawerContent from '../views/components/CustomDrawerContent';
+import ProductDetailScreen from '../views/screens/products/components/ProductDetailScreen';
+import MyCartScreen from '../views/screens/products/components/MyCartScreen';
+import ProfileScreen from '../views/screens/user/ProfileScreen';
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
@@ -103,7 +103,6 @@ export default function RootStackScreen(props) {
         ) : (
             <>
               <RootStack.Screen name="App" component={DrawerScreen} />
-              {/* <RootStack.Screen name="MyCart" component={MyCartStackScreen} /> */}
             </>
           )
       }

@@ -9,7 +9,7 @@ export const homeStyles = StyleSheet.create({
     contentContainer: {
         backgroundColor: '#FFF',
     },
-    subCategories: {
+    categories: {
         display: 'flex',
         flexDirection: 'column',
         width: 85,
