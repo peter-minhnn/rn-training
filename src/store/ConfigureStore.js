@@ -18,7 +18,7 @@ const ConfigureStore = (initialState) => {
 
     if (module.hot) {
         module.hot.accept('../reducers/index', () => {
-            const nextReducer = require('../reducers/index').default
+            const nextReducer = require('./reducers/index').default
             store.replaceReducer(nextReducer)
         })
     }

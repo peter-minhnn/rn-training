@@ -3,14 +3,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import HomeScreen from '../views/screens/products/components/HomeScreen';
+import HomeScreen from '../views/screens/home/components/HomeScreen';
 import SignInScreen from '../views/screens/auth/component/SignInScreen';
 import SignUpScreen from '../views/screens/auth/component/SignUpScreen';
 import SettingScreen from '../views/screens/others/SettingScreen';
 //import { MyTabBar } from '../components/TabBar'; used later
-import CustomDrawerContent from '../views/components/CustomDrawerContent';
-import ProductDetailScreen from '../views/screens/products/components/ProductDetailScreen';
-import MyCartScreen from '../views/screens/products/components/MyCartScreen';
+import CustomDrawerContent from '../views/generalComponents/CustomDrawerContent';
+import ProductDetailScreen from '../views/screens/home/components/ProductDetailScreen';
+import MyCartScreen from '../views/screens/home/components/MyCartScreen';
 import ProfileScreen from '../views/screens/user/ProfileScreen';
 
 const AuthStack = createStackNavigator();
