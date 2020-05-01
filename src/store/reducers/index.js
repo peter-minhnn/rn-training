@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import homeReducer from '../../views/screens/home/reducer/homeReducer'
-import authReducers from '../../views/screens/auth/reducer/authReducer'
+import homeReducer from '../../screens/home/reducer/homeReducer'
+import authReducers from '../../screens/auth/reducer/authReducer'
 
 const rootReducer = combineReducers({
     homeReducer,
