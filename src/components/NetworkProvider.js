@@ -10,8 +10,8 @@ export default function NetworkProvider(props) {
 
     useEffect(() => {
         AppState.addEventListener("change", _handleAppStateChange);
-        return () => AppState.removeEventListener("change", _handleAppStateChange);
-    }, []);
+        return () => { AppState.removeEventListener("change", _handleAppStateChange) };
+    }, [appState]);
 
 
     useEffect(() => {
@@ -24,8 +24,8 @@ export default function NetworkProvider(props) {
         });
 
         // Unsubscribe
-        unsubscribe();
-    }, [])
+        return () => { unsubscribe() };
+    }, [isConnected])
 
     const _handleAppStateChange = nextAppState => {
         if (appState.match(/inactive|background/) && nextAppState === "active") {
@@ -35,6 +35,7 @@ export default function NetworkProvider(props) {
     };
 
     const _handleConnectivityChange = isConnected => {
+        console.log('_handleConnectivityChange', isConnected)
         setIsConnected(isConnected);
     }
 

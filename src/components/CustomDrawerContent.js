@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import Animated from 'react-native-reanimated';
-import { drawerContentStyles } from '../../styles'
-import Icon from 'react-native-vector-icons/AntDesign';
-import { Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated'
+import { drawerContentStyles } from '../styles'
+import Icon from 'react-native-vector-icons/AntDesign'
+import { Dimensions } from 'react-native'
 
 const { width, height } = Dimensions.get('screen');
 const _navItem = [

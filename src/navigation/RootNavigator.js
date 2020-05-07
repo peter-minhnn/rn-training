@@ -1,18 +1,20 @@
-import React, { useMemo, useLayoutEffect, useEffect } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
+//import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
-import HomeScreen from '../screens/home/components/HomeScreen';
-import SignInScreen from '../screens/auth/component/SignInScreen';
-import SignUpScreen from '../creens/auth/component/SignUpScreen';
-import SettingScreen from '../screens/others/SettingScreen';
+//import Screens
+import HomeScreen from '../screens/home/components/HomeScreen'
+import SignInScreen from '../screens/auth/components/SignInScreen'
+import SignUpScreen from '../screens/auth/components/SignUpScreen'
+import SettingScreen from '../screens/others/SettingScreen'
 //import { MyTabBar } from '../components/TabBar'; used later
-import CustomDrawerContent from '../components/CustomDrawerContent';
-import ProductDetailScreen from '../screens/home/components/ProductDetailScreen';
-import MyCartScreen from '../screens/home/components/MyCartScreen';
-import ProfileScreen from '../screens/user/ProfileScreen';
+import CustomDrawerContent from '../components/CustomDrawerContent'
+import ProductDetailScreen from '../screens/home/components/ProductDetailScreen'
+import MyCartScreen from '../screens/home/components/MyCartScreen'
+import ProfileScreen from '../screens/user/ProfileScreen'
 
+//Auth Navigation
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator headerMode='none' initialRouteName='SignIn'>
@@ -21,13 +23,8 @@ const AuthStackScreen = () => (
   </AuthStack.Navigator>
 );
 
-const BottomTabs = createBottomTabNavigator();
-const HomeStack = createStackNavigator();
-const MyCartStack = createStackNavigator();
-const SettingStack = createStackNavigator();
-const ProfileStack = createStackNavigator();
-
 //Home Navigation
+const HomeStack = createStackNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator headerMode='none' initialRouteName='Home'>
     <HomeStack.Screen name='Home' component={HomeScreen} />
@@ -36,6 +33,7 @@ const HomeStackScreen = () => (
 );
 
 //MyCart Navigation
+const MyCartStack = createStackNavigator();
 const MyCartStackScreen = () => (
   <MyCartStack.Navigator headerMode='none'>
     <MyCartStack.Screen name='MyCart' component={MyCartScreen} />
@@ -43,6 +41,7 @@ const MyCartStackScreen = () => (
 )
 
 //Setting Navigation
+const SettingStack = createStackNavigator();
 const SettingStackScreen = () => (
   <SettingStack.Navigator headerMode='none'>
     <SettingStack.Screen name='Setting' component={SettingScreen} />
@@ -50,6 +49,7 @@ const SettingStackScreen = () => (
 );
 
 //MyCart Navigation
+const ProfileStack = createStackNavigator();
 const ProfileStackScreen = () => (
   <ProfileStack.Navigator headerMode='none'>
     <ProfileStack.Screen name='Profile' component={ProfileScreen} />
@@ -59,6 +59,7 @@ const ProfileStackScreen = () => (
   USED LATER
  */
 //Bottom Navigation 
+//const BottomTabs = createBottomTabNavigator();
 // const BottomTabsScreen = () => (
 //   <BottomTabs.Navigator
 //     initialRouteName='Home'

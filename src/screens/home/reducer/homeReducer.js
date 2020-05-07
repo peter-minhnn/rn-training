@@ -1,4 +1,4 @@
-import { LOADING_REQUEST, GET_MENU_FAILED, GET_MENU_RESPONSE } from '../../../../constants';
+import { LOADING_REQUEST, GET_MENU_FAILED, GET_MENU_RESPONSE } from '../../../constants';
 import _ from 'lodash';
 import { selectSubcategories } from '../selectors/homeSelector';
 
@@ -13,7 +13,7 @@ function homeReducer(state = initialState, action) {
         case LOADING_REQUEST:
             return { ...newState, loading: true };
         case GET_MENU_RESPONSE:
-            return { ...newState, loading: false, payloadSubCategories: action.payloadCategories };
+            return { ...newState, loading: false, payload: action.payload };
         case GET_MENU_FAILED:
             return {...newState, loading: false, error: action.error}
         default:

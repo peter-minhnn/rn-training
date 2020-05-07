@@ -11,21 +11,25 @@ function wait(timeout) {
     });
 }
 
-export default function RefreshComponent({ children, onRefreshActions }) {
+export default function RefreshComponent({ children, onRefreshActions, numStickyHeader, scrollEnabled }) {
     const [refreshing, setRefreshing] = React.useState(false);
+
+    const handleActions = () => Promise.all(onRefreshActions);
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        onRefreshActions();
+        handleActions();
         wait(2000).then(() => setRefreshing(false));
     }, [refreshing]);
-
+   
     return (
         <ScrollView
-            //contentContainerStyle={styles.scrollView}
-            refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
+            stickyHeaderIndices={numStickyHeader !== null ? [numStickyHeader] : null}
+            // refreshControl={
+            //     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            // }
+            scrollEventThrottle={200}
+            scrollEnabled={scrollEnabled}
         >
             {children}
         </ScrollView>

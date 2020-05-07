@@ -1,30 +1,27 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect } from 'react'
 import {
-    Image, Text, SafeAreaView,
-    View, Alert, ScrollView,
-    Dimensions, Animated, TouchableOpacity,
-    Linking, StatusBar, Platform
+    SafeAreaView,
+    View, Alert, Linking, Platform
 } from 'react-native'
-import { homeStyles } from '../../../../styles'
-import { Button, Input, Thumbnail } from 'native-base'
+import { homeStyles } from '../../../styles'
+import { Input } from 'native-base'
 import { useDispatch } from 'react-redux'
-import HeaderComponent from '../../generalComponents/HeaderComponent'
+import HeaderComponent from '../../../components/HeaderComponent'
 import { BallIndicator } from 'react-native-indicators'
-import * as types from '../../constants/ActionsType'
-import { NetworkAndAppStateContext } from '../../generalComponents/NetworkProvider'
+import * as types from '../../../constants'
+import { NetworkAndAppStateContext } from '../../../components/NetworkProvider'
 import Icon from 'react-native-vector-icons/AntDesign'
 import AndroidOpenSettings from 'react-native-android-open-settings'
-import { useSelector, shallowEqual } from 'react-redux'
-import { selectSubcategories } from '../../selectors/homeSelector'
+import { useSelector } from 'react-redux'
+import { selectAllSubcategories, selectProducts } from '../selectors/homeSelector'
 import Categories from './Categories'
 import Products from './Products'
+import RefreshComponent from '../../../components/RefreshControl'
 
 function HomeScreen(props) {
     const dispatch = useDispatch();
-    const [subcategories, setCategory] = useState([]);
     const [isConnected, setIsConnected] = useState(true);
-    const selectSubCategories = useSelector(selectSubcategories);
+    const selectors = useSelector(state => selectAllSubcategories(state.homeReducer.payload));
 
     useEffect(() => {
         dispatch({ type: types.GET_MENU_REQUEST })
@@ -54,6 +51,10 @@ function HomeScreen(props) {
         }
     }, [isConnected])
 
+    function _handleNetwork(isConnected) {
+        setIsConnected(isConnected)
+    }
+
     function _handleViewAll() {
         Alert.alert(
             'Warning',
@@ -70,8 +71,9 @@ function HomeScreen(props) {
             {
                 (value) =>
                     <>
+                        {setIsConnected(value.isConnected)}
                         <SafeAreaView style={{ flex: 1 }}>
-                            <ScrollView stickyHeaderIndices={[1]} scrollEventThrottle={200}>
+                            <RefreshComponent numStickyHeader={1} scrollEnabled={false}>
                                 <HeaderComponent {...props} />
                                 <View style={homeStyles.searchBarContainer}>
                                     <View style={homeStyles.searchBarChild}>
@@ -80,10 +82,10 @@ function HomeScreen(props) {
                                     </View>
                                 </View>
                                 {/* Categories component */}
-                                <Categories categories={selectSubCategories} isConnected={isConnected} />
+                                <Categories categories={selectors} isConnected={isConnected} />
                                 {/* Products component */}
-                                <Products />
-                            </ScrollView>
+                                <Products handleViewAll={_handleViewAll} isConnected={isConnected} datas={selectors}/>
+                            </RefreshComponent>
                         </SafeAreaView >
                     </>
             }

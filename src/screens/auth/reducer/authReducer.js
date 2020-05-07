@@ -1,4 +1,4 @@
-import { LOADING_REQUEST, SIGN_IN_RESPONSE, SIGN_IN_FAILED } from '../../../../constants';
+import { LOADING_REQUEST, SIGN_IN_RESPONSE, SIGN_IN_FAILED } from '../../../constants';
 import _ from 'lodash';
 
 const initialState = {

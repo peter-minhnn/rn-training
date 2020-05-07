@@ -1,7 +1,6 @@
 import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
-import { callApi } from '../../../../commons';
-import { SIGN_IN_REQUEST, SIGN_IN_RESPONSE, SIGN_IN_FAILED } from '../../../../constants';
-import { LoadingRequest, ApiResponse, ApiFailed } from '../../../../commons';
+import { SIGN_IN_REQUEST, SIGN_IN_RESPONSE, SIGN_IN_FAILED } from '../../../constants';
+import { LoadingRequest, callApi, ApiFailed } from '../../../commons';
 import AsyncStorage from '@react-native-community/async-storage';
 
 /* SIGN IN SAGA */
@@ -18,8 +17,8 @@ function* fetchSignIn(action) {
     if (result.status === 1) {
       AsyncStorage.setItem('signInToken', result.token);
     }
-    
-    yield put(ApiResponse(SIGN_IN_RESPONSE, result))
+
+    yield put({ type: SIGN_IN_RESPONSE, result })
   } catch (error) {
     yield put(ApiFailed(SIGN_IN_FAILED, error.message))
   }

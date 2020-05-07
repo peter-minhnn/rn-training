@@ -1,18 +1,18 @@
-import React, { createRef, useEffect, useState, useLayoutEffect, useRef } from 'react';
-import { View, Text, TextInput, SafeAreaView, Alert, TouchableOpacity } from 'react-native';
-import { authStyles } from '../../styles';
+import React, { useEffect, useState } from 'react'
+import { View, Text, TextInput, SafeAreaView, Alert, TouchableOpacity } from 'react-native'
+import { authStyles } from '../../../styles'
 import {
     Container,
     Content,
     Form,
     Button,
-} from 'native-base';
-import Icon from 'react-native-vector-icons/Feather';
-import { useDispatch } from 'react-redux';
-import { DotIndicator } from 'react-native-indicators';
-import SignInBackGround from '../../assets/img/login_background.svg';
+} from 'native-base'
+import Icon from 'react-native-vector-icons/Feather'
+import { useDispatch } from 'react-redux'
+import { DotIndicator } from 'react-native-indicators'
+import SignInBackGround from '../../../assets/img/login_background.svg'
 
-export default function SignInScreen(props) {
+export default function SignUpScreen(props) {
     const dispatch = useDispatch();
     const [payload, setPayload] = useState([]);
     const [fullname, setFullName] = useState('');

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { productDetailStyles } from '../../styles';
+import { productDetailStyles } from '../../../styles';
 
 export default function ProductDetailScreen(props) {
     return (
